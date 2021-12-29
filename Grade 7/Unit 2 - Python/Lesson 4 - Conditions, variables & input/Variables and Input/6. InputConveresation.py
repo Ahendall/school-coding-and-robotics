@@ -1,0 +1,6 @@
+Part1 = input('What is your name?\n')
+print("Hello, " + Part1 + "!")
+Part2 = input('What is your favorite subject at school?\n')
+print('Wow, ' + Part1 + " I love " + Part2 + " too!")
+Part3 = input("Which grade are you in " + Part1 + "?\n")
+print("You must love being in grade " + Part3)
