@@ -69,6 +69,13 @@ class customer:
 
 
     def checkout(self):
+        #update usercash
+        cash = self.cash
+        self.cash -= self.price
+        if self.cash < 0:
+            self.cash = cash
+            return False
+
         # Convert list to str, and create message
         # Will take O(n) time bcos iterating through each element in array once
         orderStr = ""
@@ -78,8 +85,6 @@ class customer:
             orderStr += str(self.cart[i])
             orderMsg += f" - {orderInMenu['name']}\n"
 
-        #update usercash
-        self.cash -= self.price
 
         # updating customers.db
         db.execute("UPDATE customers SET cash = ?, prev_order = ?, prev_price = ? WHERE name = ?", self.cash, orderStr, self.price, self.name)
@@ -88,7 +93,7 @@ class customer:
         print(orderMsg, end="")
         print(f"Remaining cash: ${self.cash}")
         print("Thank you for your purchase! Come again soon!")
-        return
+        return True
 
     
 
