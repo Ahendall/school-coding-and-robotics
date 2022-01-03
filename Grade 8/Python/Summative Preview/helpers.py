@@ -5,10 +5,11 @@ from menu import *
 # Sqlite init
 db = SQL("sqlite:///customers.db")
 
-# Class creation
+# Creation of class "Customer", containing the customer's userData, cart, and nececary functions
+# This is my first time using OOP, and i'm not sure if I'm doing it right buy hey it works ¯\_(ツ)_/¯ 
 class customer:
     def __init__(self, name): # init instance vars
-        userData = db.execute("SElECT * FROM customers WHERE name = ?", name)
+        userData = db.execute("SELECT * FROM customers WHERE name = ?", name)
 
         if len(userData) == 0:
             # Add user to database, set self variables
