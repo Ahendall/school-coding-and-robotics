@@ -33,14 +33,17 @@ def main():
                 return
 
             # Checking if order is valid. If yes, running order()
-            if int(query) in m.menuDict.keys():
-                Customer.order(int(query))
-                continue
-            else:
-                print(
-                    f'I am not familiar with the order "{query}"\n Please order again.'
-                )
-                continue
+            try:
+                if int(query) in m.menuDict.keys():
+                    Customer.order(int(query))
+                    continue
+                else:
+                    print(
+                        f'I am not familiar with the order "{query}"\n Please order again.'
+                    )
+                    continue
+            except:
+                print("Please input a valid order.")
 
     else:
         # Customer already exists in db
