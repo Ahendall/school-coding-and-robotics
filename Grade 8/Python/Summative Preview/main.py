@@ -1,5 +1,6 @@
 from cs50 import SQL
 from random import randint
+from sys import exit
 
 import menu as m
 from helpers import customer, get_int
@@ -56,7 +57,7 @@ def main():
         if re_order == 1:
             checkoutStatus = Customer.order(Customer.prev_order)
             if checkoutStatus:
-                return 0
+                exit(0)
             print(
                 "You do not have enough money to order your previous order.\nTry ordering something new."
             )
