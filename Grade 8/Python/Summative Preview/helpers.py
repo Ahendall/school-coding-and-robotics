@@ -35,8 +35,8 @@ class customer:
             # Converting previous order to list
             # O(n) because going through each element once
             prev_order = order["prev_order"]
-            for i in range(len(prev_order)):
-                self.cart.append(int(prev_order[i]))
+            for i in prev_order:
+                self.cart.append(int(i))
             self.price = order["prev_price"]
 
             return self.checkout()
@@ -81,9 +81,9 @@ class customer:
         # Will take O(n) time bcos iterating through each element in array once
         orderStr = ""
         orderMsg = "You ordered: \n"
-        for i in range(len(self.cart)):
-            orderInMenu = menuDict[self.cart[i]]
-            orderStr += str(self.cart[i])
+        for i in self.cart:
+            orderInMenu = menuDict[i]
+            orderStr += str(i)
             orderMsg += f" - {orderInMenu['name']}\n"
 
 
