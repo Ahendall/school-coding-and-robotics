@@ -4,11 +4,11 @@
 #include <cctype>
 #include <iostream>
 #include <map>
+#include <random>
 #include <sstream>
 #include <string>
 #include <utility>
 #include <vector>
-#include <random>
 
 // Macros
 #define MENU_ITR map<int, MenuItem>::iterator
@@ -16,6 +16,7 @@
 
 // Namespace and class uses
 using namespace sqlite;
+using std::array;
 using std::cin;
 using std::cout;
 using std::endl;
@@ -23,6 +24,7 @@ using std::exception;
 using std::find;
 using std::getline;
 using std::map;
+using std::next;
 using std::numeric_limits;
 using std::pair;
 using std::streamsize;
@@ -30,8 +32,6 @@ using std::string;
 using std::stringstream;
 using std::to_string;
 using std::vector;
-using std::array;
-using std::next;
 
 // non-class function prototypes
 int getInt(string query);
@@ -99,22 +99,22 @@ class Customer {
 
     Customer(string customerName) {
         vector<CustomerData> people;
-		try {
-			db << "SELECT cash, prev_order, prev_price FROM customers WHERE name = ?;"
-			<< customerName >>
-				[&](float cash, string prev_order, float prev_price) {
-					CustomerData tempCustomer;
-					tempCustomer.prev_order = prev_order;
-					tempCustomer.cash = cash;
-					tempCustomer.prev_price = prev_price;
+        try {
+            db << "SELECT cash, prev_order, prev_price FROM customers WHERE name = ?;"
+               << customerName >>
+                [&](float cash, string prev_order, float prev_price) {
+                    CustomerData tempCustomer;
+                    tempCustomer.prev_order = prev_order;
+                    tempCustomer.cash = cash;
+                    tempCustomer.prev_price = prev_price;
 
-					people.push_back(tempCustomer);
-				};
-		}
-			
-		catch (exception& e) {
-      		cout << e.what() << endl;
-   		}
+                    people.push_back(tempCustomer);
+                };
+        }
+
+        catch (exception &e) {
+            cout << e.what() << endl;
+        }
 
         if (people.size() == 0) {
             // No existing customer with name "customerName"
@@ -148,8 +148,8 @@ class Customer {
     // Function that will check out the user, deduct money, and update database.
     bool checkout();
 
-	// Function that returns an organised message of items in the cart, as well as the total price of items
-	string checkoutMsg();
+    // Function that returns an organised message of items in the cart, as well as the total price of items
+    string checkoutMsg();
 };
 
 // Add item order
@@ -221,71 +221,72 @@ bool Customer::checkout() {
 
 // Function that returns an organised message of items in the cart, as well as the total price of items
 string Customer::checkoutMsg() {
-	stringstream msg;
-	map<string, int> cartMap;
+    stringstream msg;
+    map<string, int> cartMap;
 
-	// Converting cart vector to map
-	for (int i = 0; i < cart.size(); i++) {
-		MENU_ITR orderInMenu = menu.find(cart[i]);
-		map<string, int>::iterator it = cartMap.find(orderInMenu->second.name);
+    // Converting cart vector to map
+    for (int i = 0; i < cart.size(); i++) {
+        MENU_ITR orderInMenu = menu.find(cart[i]);
+        map<string, int>::iterator it = cartMap.find(orderInMenu->second.name);
 
-		// Checking if order is already present in map
-		if (it == cartMap.end()) {
-			cartMap.insert(pair<string, int>(orderInMenu->second.name, 1));
-		} else { 
-			it->second++;
-		}
-	}
+        // Checking if order is already present in map
+        if (it == cartMap.end()) {
+            cartMap.insert(pair<string, int>(orderInMenu->second.name, 1));
+        } else {
+            it->second++;
+        }
+    }
 
-	// Converting map to string
-	for (map<string, int>::iterator it = cartMap.begin(); it != cartMap.end(); it++) {
-		msg << " - " << it->first;
+    // Converting map to string
+    for (map<string, int>::iterator it = cartMap.begin(); it != cartMap.end(); it++) {
+        msg << " - " << it->first;
 
-		if (it->second > 1) { 
-			msg << " (x" << it->second << ")";
-		}
+        if (it->second > 1) {
+            msg << " (x" << it->second << ")";
+        }
 
-		msg << "\n";
-	}
+        msg << "\n";
+    }
 
-	// Adding final messages and returning stream in form of std::string
-	msg << "\n" << "You spent: " << price << "\n";
-	msg << "Remaining cash: $" << cash << "\n";
-	msg << "Thank you for your purchase! Come again soon!";
+    // Adding final messages and returning stream in form of std::string
+    msg << "\n"
+        << "You spent: " << price << "\n";
+    msg << "Remaining cash: $" << cash << "\n";
+    msg << "Thank you for your purchase! Come again soon!";
 
-	return msg.str();
+    return msg.str();
 }
 
 /****************** Other Helper Functs ******************/
 // Function prompting user for "query" until valid integer is given
 int getInt(string query) {
-	while (true) {
-		int x;
-		cout << query;
+    while (true) {
+        int x;
+        cout << query;
         cin >> x;
 
-		if (cin.fail()) {
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			continue;
-		}
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
 
-		return x;
-	}
+        return x;
+    }
 }
 
 // Wrapper function for getline()
 string getString(string query) {
-	string x;
+    string x;
 
-	// Making sure cin is cleared
-	cin.clear();
+    // Making sure cin is cleared
+    cin.clear();
 
-	// Getting input from user
-	cout << query;
-	getline(cin, x);
+    // Getting input from user
+    cout << query;
+    getline(cin, x);
 
-	return x;
+    return x;
 }
 
 // Function that converts a string to all lowercase
@@ -294,7 +295,7 @@ string lower(string word) {
         word[i] = tolower(word[i]);
     }
 
-	return word;
+    return word;
 }
 
 // Function that will print menu and welcome message
@@ -330,51 +331,51 @@ string slice(string str, int start, int end) {
 
 // Will return all characters from str[start] to end of str
 string slice(string str, int start) {
-	string slicedStr = notext;
-	for (int i = start; i < str.length(); i++) {
-		slicedStr += str[i];
-	}
+    string slicedStr = notext;
+    for (int i = start; i < str.length(); i++) {
+        slicedStr += str[i];
+    }
 
-	return slicedStr;
+    return slicedStr;
 }
 
 // Function that converts a string to an integer using the string stream
 // This typecast method is more effective than standard conversion because
 // typecasting an integer in a string will return it's ascii value, not it's actual value
 int strToInt(string str) {
-	stringstream convert(str);
-	int x = 0;
-	convert >> x;
-	return x;
+    stringstream convert(str);
+    int x = 0;
+    convert >> x;
+    return x;
 }
 
 // Helper function for excellentChoice
 int randomInt() {
-	std::random_device dev;
+    std::random_device dev;
     std::mt19937 rng(dev());
-    std::uniform_int_distribution<std::mt19937::result_type> dist6(0,4); // distribution in range [0, 4]
+    std::uniform_int_distribution<std::mt19937::result_type> dist6(0, 4);  // distribution in range [0, 4]
 
-	return dist6(rng);
+    return dist6(rng);
 }
 
 // Function that prints a random message based on a random int value
 void excellentChoice() {
-	// Arrays of similar statements so that it's not the same every time.
-	array<string, 5> excellent = {"Excellent choice. ", "Wonderful! ", "A fine selection. ", "Brilliant choice. ", "Great! "};
-	array<string, 5> anythingElse = {"Anything else?", "Anything else to add to your cart?", "Any more items?", "Would you like to add anything else?", "Will that be all?"};
+    // Arrays of similar statements so that it's not the same every time.
+    array<string, 5> excellent = {"Excellent choice. ", "Wonderful! ", "A fine selection. ", "Brilliant choice. ", "Great! "};
+    array<string, 5> anythingElse = {"Anything else?", "Anything else to add to your cart?", "Any more items?", "Would you like to add anything else?", "Will that be all?"};
 
-	// Printing the message
-	cout << excellent[randomInt()] << anythingElse[randomInt()] << endl;
+    // Printing the message
+    cout << excellent[randomInt()] << anythingElse[randomInt()] << endl;
 }
 
 // Function that will remove an item from the cart (an integer resizable array (vector))
 bool removeFromVector(vector<int> &arr, int target) {
-	for (int i = 0; i < arr.size(); i++) {
-		if (arr[i] == target) {
-			arr.erase(next(arr.begin(), i));
-			return true;
-		}
-	}
+    for (int i = 0; i < arr.size(); i++) {
+        if (arr[i] == target) {
+            arr.erase(next(arr.begin(), i));
+            return true;
+        }
+    }
 
-	return false;
+    return false;
 }
