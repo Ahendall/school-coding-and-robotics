@@ -41,6 +41,7 @@ void printMenu();
 string slice(string str, int start, int end);
 string slice(string str, int start);
 int strToInt(string str);
+int charToInt(char ch);
 int randomInt();
 void excellentChoice();
 bool removeFromVector(vector<int> &arr, int target);
@@ -80,7 +81,8 @@ map<int, MenuItem> menu = {
     {3, MenuItem("10 (+1) Peice chicken nugget", 10)},
     {4, MenuItem("Small fries", 1.25)},
     {5, MenuItem("Medium fries", 2.25)},
-    {6, MenuItem("Large fries", 4.20)}};
+    {6, MenuItem("Large fries", 4.20)}
+};
 
 // Class for active customer
 class Customer {
@@ -172,7 +174,7 @@ bool Customer::order() {
 
     // Converting prevOrder str to vector
     for (int i = 0; i < prevOrder.order.size(); i++)
-        cart.push_back(int(prevOrder.order[i]));
+        cart.push_back(charToInt(prevOrder.order[i]));
 
     return checkout();
 }
@@ -250,9 +252,9 @@ string Customer::checkoutMsg() {
 
     // Adding final messages and returning stream in form of std::string
     msg << "\n"
-        << "You spent: " << price << "\n";
-    msg << "Remaining cash: $" << cash << "\n";
-    msg << "Thank you for your purchase! Come again soon!";
+        << "You spent: " << price << "\n"
+        << "Remaining cash: $" << cash << "\n"
+        << "Thank you for your purchase! Come again soon!";
 
     return msg.str();
 }
@@ -279,7 +281,7 @@ int getInt(string query) {
 string getString(string query) {
     string x;
 
-    // Making sure cin is cleared
+    // Making sure input stream is clear
     cin.clear();
 
     // Getting input from user
@@ -349,6 +351,11 @@ int strToInt(string str) {
     return x;
 }
 
+// Function that converts a char to an int, accounting for ascii value
+int charToInt(char ch) {
+    return int(ch) - 48;
+}
+
 // Helper function for excellentChoice
 int randomInt() {
     std::random_device dev;
@@ -360,6 +367,8 @@ int randomInt() {
 
 // Function that prints a random message based on a random int value
 void excellentChoice() {
+    cout << "\n";
+
     // Arrays of similar statements so that it's not the same every time.
     array<string, 5> excellent = {"Excellent choice. ", "Wonderful! ", "A fine selection. ", "Brilliant choice. ", "Great! "};
     array<string, 5> anythingElse = {"Anything else?", "Anything else to add to your cart?", "Any more items?", "Would you like to add anything else?", "Will that be all?"};
