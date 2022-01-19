@@ -223,8 +223,8 @@ bool Customer::checkout() {
 	return true;
 }
 
-// Function that returns an organised message of items in the cart, as well as
-// the total price of items
+// Function that returns an organised message of items in the cart,
+// as well as the total price of items
 string Customer::checkoutMsg() {
 	stringstream msg;
 	map<string, int> cartMap;
@@ -307,30 +307,20 @@ string lower(string word) {
 // Function that will print menu and welcome message
 void printMenu() {
 	stringstream ss1;
-	ss1 << "+------------------------------+-------+-----------------------------"
-		   "------------+\n";
-	ss1 << "|             Item             | Price | order id (type in this "
-		   "number to order) |\n";
-	ss1 << "+------------------------------+-------+-----------------------------"
-		   "------------+\n";
-	ss1 << "| 2 piece chicken nugget       | $2    |                             "
-		   "          1 |\n";
-	ss1 << "| 5 Piece chicken nugget       | $5    |                             "
-		   "          2 |\n";
-	ss1 << "| 10 (+1) Piece chicken nugget | $10   |                             "
-		   "          3 |\n";
-	ss1 << "| Small fries                  | $1.25 |                             "
-		   "          4 |\n";
-	ss1 << "| Medium fries                 | $2.25 |                             "
-		   "          5 |\n";
-	ss1 << "| Large fries                  | $4.20 |                             "
-		   "          6 |\n";
-	ss1 << "+------------------------------+-------+-----------------------------"
-		   "------------+\n\n";
-	ss1 << "What would you like to order?\n";
-	ss1 << "- To add something to your cart: Type in the order id\n";
-	ss1 << "- To remove an item from your cart: type in `rm [order_id]`\n";
-	ss1 << "- To checkout and pay: type in `checkout`\n";
+	ss1 << "+------------------------------+-------+-----------------------------------------+\n"
+	    << "|             Item             | Price | order id (type in this number to order) |\n"
+	    << "+------------------------------+-------+-----------------------------------------+\n"
+	    << "| 2 piece chicken nugget       | $2    |                                       1 |\n"
+	    << "| 5 Piece chicken nugget       | $5    |                                       2 |\n"
+	    << "| 10 (+1) Piece chicken nugget | $10   |                                       3 |\n"
+	    << "| Small fries                  | $1.25 |                                       4 |\n"
+	    << "| Medium fries                 | $2.25 |                                       5 |\n"
+	    << "| Large fries                  | $4.20 |                                       6 |\n"
+	    << "+------------------------------+-------+-----------------------------------------+\n\n"
+	    << "What would you like to order?\n"
+	    << "- To add something to your cart: Type in the order id\n"
+	    << "- To remove an item from your cart: type in `rm [order_id]`\n"
+	    << "- To checkout and pay: type in `checkout`\n";
 	cout << ss1.str();
 }
 
