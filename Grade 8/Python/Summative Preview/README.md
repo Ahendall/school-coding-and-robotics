@@ -33,8 +33,3 @@ Verify installation using: `pip3 --version`
 Then run `pip3 install cs50`
 
 Then just download everything in this folder and run main.py
-
-### C++
- - Download everything in the cpp folder
- - compile in terminal using 'g++ -o main main.cpp`
- - run using `./main`
