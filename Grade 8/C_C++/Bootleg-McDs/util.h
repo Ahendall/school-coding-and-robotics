@@ -1,24 +1,16 @@
 // Library Imports
 #include <sqlite_modern_cpp.h>
-
 #include <cctype>
-
 #include <iostream>
-
 #include <map>
-
 #include <random>
-
 #include <sstream>
-
 #include <string>
-
 #include <utility>
-
 #include <vector>
 
 // Macros
-#define MENU_ITR map < int, MenuItem > ::iterator
+#define MENU_ITR map<int, MenuItem>::iterator
 #define notext ""
 
 // Namespace and class uses
@@ -83,37 +75,20 @@ struct MenuItem {
 
 // Declaration of menu items + Hashmap of MenuItems
 map < int, MenuItem > menu = {
-    {
-        1,
-        MenuItem("2 Peice chicken nugget", 2.00)
-    },
-    {
-        2,
-        MenuItem("5 Peice chicken nugget", 5.00)
-    },
-    {
-        3,
-        MenuItem("10 (+1) Peice chicken nugget", 10)
-    },
-    {
-        4,
-        MenuItem("Small fries", 1.25)
-    },
-    {
-        5,
-        MenuItem("Medium fries", 2.25)
-    },
-    {
-        6,
-        MenuItem("Large fries", 4.20)
-    }
+    { 1, MenuItem("2 Peice chicken nugget", 2.00) },
+    { 2, MenuItem("5 Peice chicken nugget", 5.00) },
+    { 3, MenuItem("10 (+1) Peice chicken nugget", 10) },
+    { 4, MenuItem("Small fries", 1.25) },
+    { 5, MenuItem("Medium fries", 2.25) },
+    { 6, MenuItem("Large fries", 4.20) }
 };
 
 // Class for active customer
 class Customer {
     public:
-        // String-based members
-        string name;
+
+	// String-based members
+	string name;
     PrevOrder prevOrder;
 
     // Numeric members
@@ -124,6 +99,7 @@ class Customer {
     // Boolean Members
     bool isNew;
 
+	// Constructor
     Customer(string customerName) {
         vector < CustomerData > people;
         try {
@@ -160,21 +136,11 @@ class Customer {
         }
     }
 
-    // Function that will add item "order" to user's cart. Only works with new
-    // orders
+    // Method Prototypes
     bool order(int order);
-
-    // Function that will re-order user's previous order from previous session
     bool order();
-
-    // Function that will remove an order from the user's cart
     int remove(int order);
-
-    // Function that will check out the user, deduct money, and update database.
     bool checkout();
-
-    // Function that returns an organised message of items in the cart, as well as
-    // the total price of items
     string checkoutMsg();
 };
 
@@ -241,9 +207,12 @@ bool Customer::checkout() {
     }
 
     // Updating DB
-    db << "UPDATE customers SET cash = ?, prev_order = ?, prev_price = ? WHERE "
-    "name = ?" <<
-    cash << orderStr << price << name;
+    db << "UPDATE customers SET cash = ?, prev_order = ?, prev_price = ? WHERE name = ?"
+	<< cash
+	<< orderStr 
+	<< price
+	<< name;
+
     return true;
 }
 
@@ -256,7 +225,7 @@ string Customer::checkoutMsg() {
     // Converting cart vector to map
     for (int i = 0; i < cart.size(); i++) {
         MENU_ITR orderInMenu = menu.find(cart[i]);
-        map < string, int > ::iterator it = cartMap.find(orderInMenu -> second.name);
+        map<string, int>::iterator it = cartMap.find(orderInMenu -> second.name);
 
         // Checking if order is already present in map
         if (it == cartMap.end()) {
@@ -267,7 +236,7 @@ string Customer::checkoutMsg() {
     }
 
     // Converting map to string
-    for (map < string, int > ::iterator it = cartMap.begin(); it != cartMap.end(); it++) {
+    for (map<string, int>::iterator it = cartMap.begin(); it != cartMap.end(); it++) {
         msg << " - " << it -> first;
 
         if (it -> second > 1) {
@@ -286,6 +255,7 @@ string Customer::checkoutMsg() {
     return msg.str();
 }
 
+
 /****************** Other Helper Functs ******************/
 // Function prompting user for "query" until valid integer is given
 int getInt(string query) {
@@ -295,6 +265,8 @@ int getInt(string query) {
         cin >> x;
 
         if (cin.fail()) {
+			// Saftey measures to insure that cin doesn't bug out
+			// And infinitely continue the loop
             cin.clear();
             cin.ignore(numeric_limits < streamsize > ::max(), '\n');
             continue;
@@ -321,7 +293,8 @@ string getString(string query) {
 // Function that converts a string to all lowercase
 string lower(string word) {
     for (int i = 0; i < word.size(); i++) {
-        word[i] = tolower(word[i]);
+		if (isalpha(word[i]))
+        	word[i] = tolower(word[i]);
     }
 
     return word;
@@ -330,20 +303,20 @@ string lower(string word) {
 // Function that will print menu and welcome message
 void printMenu() {
     stringstream ss1;
-    ss1 << "+------------------------------+-------+-----------------------------------------+\n" <<
-        "|             Item             | Price | order id (type in this number to order) |\n" <<
-        "+------------------------------+-------+-----------------------------------------+\n" <<
-        "| 2 piece chicken nugget       | $2    |                                       1 |\n" <<
-        "| 5 Piece chicken nugget       | $5    |                                       2 |\n" <<
-        "| 10 (+1) Piece chicken nugget | $10   |                                       3 |\n" <<
-        "| Small fries                  | $1.25 |                                       4 |\n" <<
-        "| Medium fries                 | $2.25 |                                       5 |\n" <<
-        "| Large fries                  | $4.20 |                                       6 |\n" <<
-        "+------------------------------+-------+-----------------------------------------+\n\n" <<
-        "What would you like to order?\n" <<
-        "- To add something to your cart: Type in the order id\n" <<
-        "- To remove an item from your cart: type in `rm [order_id]`\n" <<
-        "- To checkout and pay: type in `checkout`\n";
+    ss1 << "+------------------------------+-------+-----------------------------------------+\n" 
+    	<< "|             Item             | Price | order id (type in this number to order) |\n"
+        << "+------------------------------+-------+-----------------------------------------+\n"
+        << "| 2 piece chicken nugget       | $2    |                                       1 |\n"
+        << "| 5 Piece chicken nugget       | $5    |                                       2 |\n"
+        << "| 10 (+1) Piece chicken nugget | $10   |                                       3 |\n"
+        << "| Small fries                  | $1.25 |                                       4 |\n"
+        << "| Medium fries                 | $2.25 |                                       5 |\n"
+        << "| Large fries                  | $4.20 |                                       6 |\n"
+        << "+------------------------------+-------+-----------------------------------------+\n\n"
+        << "What would you like to order?\n"
+        << "- To add something to your cart: Type in the order id\n"
+        << "- To remove an item from your cart: type in `rm [order_id]`\n"
+        << "- To checkout and pay: type in `checkout`\n";
     cout << ss1.str();
 }
 
@@ -370,8 +343,7 @@ string slice(string str, int start) {
 
 // Function that converts a string to an integer using the string stream
 // This typecast method is more effective than standard conversion because
-// typecasting an integer in a string will return it's ascii value, not it's
-// actual value
+// typecasting an integer in a string will return it's ascii value, not it's actual value
 int strToInt(string str) {
     stringstream convert(str);
     int x = 0;
@@ -385,11 +357,10 @@ int charToInt(char ch) {
 }
 
 // Helper function for excellentChoice
-int randomInt() {
+int randomInt(int start, int end) {
     std::random_device dev;
     std::mt19937 rng(dev());
-    std::uniform_int_distribution < std::mt19937::result_type > dist6(
-        0, 4); // distribution in range [0, 4]
+    std::uniform_int_distribution < std::mt19937::result_type > dist6(start, end); // distribution in range [0, 4]
 
     return dist6(rng);
 }
@@ -398,7 +369,7 @@ int randomInt() {
 void excellentChoice() {
     cout << "\n";
 
-    // Arrays of similar statements so that it's not the same every time.
+    // Arrays of similar statements so that we get variation in the statements
     array < string, 5 > excellent = {
         "Excellent choice. ",
         "Wonderful! ",
@@ -406,6 +377,7 @@ void excellentChoice() {
         "Brilliant choice. ",
         "Great! "
     };
+
     array < string, 5 > anythingElse = {
         "Anything else?",
         "Anything else to add to your cart?",
@@ -415,11 +387,12 @@ void excellentChoice() {
     };
 
     // Printing the message
-    cout << excellent[randomInt()] << anythingElse[randomInt()] << endl;
+    cout << excellent[randomInt(0, 4)] << anythingElse[randomInt(0, 4)] << endl;
 }
 
-// Function that will remove an item from the cart (an integer resizable array
-// (vector))
+// Helper function for Customer::remove()
+// Way to remove by item and not by index
+// However, actual implementation deletes by index anyway
 bool removeFromVector(vector < int > & arr, int target) {
     for (int i = 0; i < arr.size(); i++) {
         if (arr[i] == target) {
