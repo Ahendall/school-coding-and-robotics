@@ -241,9 +241,11 @@ bool Customer::checkout() {
     }
 
     // Updating DB
-    db << "UPDATE customers SET cash = ?, prev_order = ?, prev_price = ? WHERE "
-    "name = ?" <<
-    cash << orderStr << price << name;
+    db << "UPDATE customers SET cash = ?, prev_order = ?, prev_price = ? WHERE name = ?"
+        << cash
+        << orderStr
+        << price
+        << name;
     return true;
 }
 
@@ -251,12 +253,12 @@ bool Customer::checkout() {
 // as well as the total price of items
 string Customer::checkoutMsg() {
     stringstream msg;
-    map < string, int > cartMap;
+    map <string, int> cartMap;
 
     // Converting cart vector to map
     for (int i = 0; i < cart.size(); i++) {
         MENU_ITR orderInMenu = menu.find(cart[i]);
-        map < string, int > ::iterator it = cartMap.find(orderInMenu -> second.name);
+        map <string, int>::iterator it = cartMap.find(orderInMenu -> second.name);
 
         // Checking if order is already present in map
         if (it == cartMap.end()) {
@@ -267,7 +269,8 @@ string Customer::checkoutMsg() {
     }
 
     // Converting map to string
-    for (map < string, int > ::iterator it = cartMap.begin(); it != cartMap.end(); it++) {
+    msg << "\nYou Ordered:\n";
+    for (map <string, int>::iterator it = cartMap.begin(); it != cartMap.end(); it++) {
         msg << " - " << it -> first;
 
         if (it -> second > 1) {
@@ -278,10 +281,10 @@ string Customer::checkoutMsg() {
     }
 
     // Adding final messages and returning stream in form of std::string
-    msg << "\n" <<
-        "You spent: " << price << "\n" <<
-        "Remaining cash: $" << cash << "\n" <<
-        "Thank you for your purchase! Come again soon!";
+    msg << "\n"
+        << "You spent: " << price << "\n"
+        << "Remaining cash: $" << cash << "\n"
+        << "Thank you for your purchase! Come again soon!";
 
     return msg.str();
 }
@@ -330,20 +333,20 @@ string lower(string word) {
 // Function that will print menu and welcome message
 void printMenu() {
     stringstream ss1;
-    ss1 << "+------------------------------+-------+-----------------------------------------+\n" <<
-        "|             Item             | Price | order id (type in this number to order) |\n" <<
-        "+------------------------------+-------+-----------------------------------------+\n" <<
-        "| 2 piece chicken nugget       | $2    |                                       1 |\n" <<
-        "| 5 Piece chicken nugget       | $5    |                                       2 |\n" <<
-        "| 10 (+1) Piece chicken nugget | $10   |                                       3 |\n" <<
-        "| Small fries                  | $1.25 |                                       4 |\n" <<
-        "| Medium fries                 | $2.25 |                                       5 |\n" <<
-        "| Large fries                  | $4.20 |                                       6 |\n" <<
-        "+------------------------------+-------+-----------------------------------------+\n\n" <<
-        "What would you like to order?\n" <<
-        "- To add something to your cart: Type in the order id\n" <<
-        "- To remove an item from your cart: type in `rm [order_id]`\n" <<
-        "- To checkout and pay: type in `checkout`\n";
+    ss1 << "+------------------------------+-------+-----------------------------------------+\n"
+        << "|             Item             | Price | order id (type in this number to order) |\n"
+        << "+------------------------------+-------+-----------------------------------------+\n"
+        << "| 2 piece chicken nugget       | $2    |                                       1 |\n"
+        << "| 5 Piece chicken nugget       | $5    |                                       2 |\n"
+        << "| 10 (+1) Piece chicken nugget | $10   |                                       3 |\n"
+        << "| Small fries                  | $1.25 |                                       4 |\n"
+        << "| Medium fries                 | $2.25 |                                       5 |\n"
+        << "| Large fries                  | $4.20 |                                       6 |\n"
+        << "+------------------------------+-------+-----------------------------------------+\n\n"
+        << "What would you like to order?\n"
+        << "- To add something to your cart: Type in the order id\n"
+        << "- To remove an item from your cart: type in `rm [order_id]`\n"
+        << "- To checkout and pay: type in `checkout`\n";
     cout << ss1.str();
 }
 
@@ -370,8 +373,7 @@ string slice(string str, int start) {
 
 // Function that converts a string to an integer using the string stream
 // This typecast method is more effective than standard conversion because
-// typecasting an integer in a string will return it's ascii value, not it's
-// actual value
+// typecasting an integer in a string will return it's ascii value, not it's actual value
 int strToInt(string str) {
     stringstream convert(str);
     int x = 0;
@@ -385,11 +387,11 @@ int charToInt(char ch) {
 }
 
 // Helper function for excellentChoice
-int randomInt() {
+int randomInt(int m, int n) {
     std::random_device dev;
     std::mt19937 rng(dev());
-    std::uniform_int_distribution < std::mt19937::result_type > dist6(
-        0, 4); // distribution in range [0, 4]
+    std::uniform_int_distribution < std::mt19937::result_type > dist6(m, n);
+    // distribution in range [m, n]
 
     return dist6(rng);
 }
@@ -406,6 +408,7 @@ void excellentChoice() {
         "Brilliant choice. ",
         "Great! "
     };
+
     array < string, 5 > anythingElse = {
         "Anything else?",
         "Anything else to add to your cart?",
@@ -415,11 +418,10 @@ void excellentChoice() {
     };
 
     // Printing the message
-    cout << excellent[randomInt()] << anythingElse[randomInt()] << endl;
+    cout << excellent[randomInt(0, 4)] << anythingElse[randomInt(0, 4)] << endl;
 }
 
-// Function that will remove an item from the cart (an integer resizable array
-// (vector))
+// Function that removes vector element by value
 bool removeFromVector(vector < int > & arr, int target) {
     for (int i = 0; i < arr.size(); i++) {
         if (arr[i] == target) {

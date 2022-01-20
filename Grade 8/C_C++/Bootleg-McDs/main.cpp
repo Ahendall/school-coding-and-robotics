@@ -4,6 +4,7 @@
 // Function prototypes
 int newCustomer(Customer customer);
 int existingCustomer(Customer customer);
+int orderLoop(Customer customer);
 
 // Main function to handle Instancing and customer newcheck
 int main() {
@@ -15,7 +16,7 @@ int main() {
         return newCustomer(customer);
 
     else
-        existingCustomer(customer);
+        return existingCustomer(customer);
 }
 
 // Defining function prototypes
@@ -25,48 +26,7 @@ int newCustomer(Customer customer) {
     cout << "Here is our menu for today:\n\n";
     printMenu();
 
-    // Infinite loop to get customer's orders
-    while (true) {
-        string query = lower(getString(notext));
-
-        // Customer wants to remove an order from cart
-        if (slice(query, 0, 2) == "rm") {
-            int status = customer.remove(strToInt(slice(query, 3)));
-
-            if (status == 0)
-                cout << "Item " << query[3] << " removed successfully. Anything else?\n";
-
-            else if (status == 1)
-                cout << "Item " << query[3] << " is not a valid order Id. Please try again.\n";
-
-            else
-                cout << "Item " << query[3] << " is not in your cart. Please try again.\n";
-        }
-
-        // Customer wants to checkout and pay
-        else if (query.find("checkout") != string::npos) {
-            bool status = customer.checkout();
-            if (status) {
-                cout << customer.checkoutMsg() << endl;
-                return 0;
-            } else {
-                cout << "You do not have enough money!\nTry removing a few things.";
-                continue;
-            }
-        }
-
-        // Customer wants to add a new order to cart
-        else {
-            int orderId = strToInt(query);
-            bool orderStatus = customer.order(orderId);
-
-            if (not orderStatus)
-                cout << "I am not familiar with the order \"" << orderId << "\". Please try again." << endl;
-
-            else
-                excellentChoice();
-        }
-    }
+    return orderLoop(customer);
 }
 
 int existingCustomer(Customer customer) {
@@ -95,6 +55,13 @@ int existingCustomer(Customer customer) {
         cout << "Try ordering something else. \n";
     }
 
+    return orderLoop(customer);
+}
+
+
+
+int orderLoop(Customer customer) {
+    // Infinite loop to get customer's orders
     while (true) {
         string query = lower(getString(notext));
 
