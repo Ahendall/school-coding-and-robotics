@@ -17,7 +17,7 @@ int main() {
         return newCustomer(customer);
 
     else
-        existingCustomer(customer);
+        return existingCustomer(customer);
 }
 
 
@@ -42,8 +42,7 @@ int existingCustomer(Customer customer) {
     do {
         cout << "\n";
         reOrderChoice = getString("Would you like to re-order your previous order?\n(y/n): ");
-    } while (reOrderChoice[0] != 'y'
-        and reOrderChoice[0] != 'n');
+    } while (reOrderChoice[0] != 'y' && reOrderChoice[0] != 'n');
 
     if (reOrderChoice[0] == 'y') {
         bool status = customer.order();

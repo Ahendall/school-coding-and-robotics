@@ -43,8 +43,8 @@ int strToInt(string str);
 int charToInt(char ch);
 int randomInt();
 void excellentChoice();
-bool removeFromVector(vector < int > & arr, int target);
-string checkoutMsg(vector < int > & cart);
+bool removeFromVector(vector<int> &arr, int target);
+string checkoutMsg(vector <int> &cart);
 
 // SQLite Init
 database db("customers.db");
@@ -94,17 +94,17 @@ class Customer {
     // Numeric members
     float cash;
     float price = 0;
-    vector < int > cart;
+    vector<int> cart;
 
     // Boolean Members
     bool isNew;
 
 	// Constructor
     Customer(string customerName) {
-        vector < CustomerData > people;
+        vector<CustomerData> people;
         try {
             db << "SELECT cash, prev_order, prev_price FROM customers WHERE name = ?;" <<
-                customerName >> [ & ](float cash, string prev_order, float prev_price) {
+                customerName >> [&](float cash, string prev_order, float prev_price) {
                     CustomerData tempCustomer;
                     tempCustomer.prev_order = prev_order;
                     tempCustomer.cash = cash;
@@ -112,7 +112,7 @@ class Customer {
 
                     people.push_back(tempCustomer);
                 };
-        } catch (exception & e) {
+        } catch (exception &e) {
             cout << e.what() << endl;
         }
 
@@ -342,8 +342,8 @@ string slice(string str, int start) {
 }
 
 // Function that converts a string to an integer using the string stream
-// This typecast method is more effective than standard conversion because
-// typecasting an integer in a string will return it's ascii value, not it's actual value
+// More effective than standard typecasting because typecasting an
+// int in a string will return it's ascii value, not it's actual value
 int strToInt(string str) {
     stringstream convert(str);
     int x = 0;
@@ -357,6 +357,7 @@ int charToInt(char ch) {
 }
 
 // Helper function for excellentChoice
+// https://stackoverflow.com/a/13445752/10853009
 int randomInt(int start, int end) {
     std::random_device dev;
     std::mt19937 rng(dev());
@@ -393,7 +394,7 @@ void excellentChoice() {
 // Helper function for Customer::remove()
 // Way to remove by item and not by index
 // However, actual implementation deletes by index anyway
-bool removeFromVector(vector < int > & arr, int target) {
+bool removeFromVector(vector<int> &arr, int target) {
     for (int i = 0; i < arr.size(); i++) {
         if (arr[i] == target) {
             arr.erase(next(arr.begin(), i));
