@@ -107,7 +107,7 @@ def get_int(prompt):
         try:
             query = int(query)
             break
-        except:
+        except ValueError:
             # Error with typecasting str to int meaning input is invalid
             continue
 
