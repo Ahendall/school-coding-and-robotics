@@ -74,7 +74,7 @@ struct MenuItem {
 };
 
 // Declaration of menu items + Hashmap of MenuItems
-map < int, MenuItem > menu = {
+map<int, MenuItem> menu = {
     { 1, MenuItem("2 Peice chicken nugget", 2.00) },
     { 2, MenuItem("5 Peice chicken nugget", 5.00) },
     { 3, MenuItem("10 (+1) Peice chicken nugget", 10) },
@@ -220,7 +220,7 @@ bool Customer::checkout() {
 // as well as the total price of items
 string Customer::checkoutMsg() {
     stringstream msg;
-    map < string, int > cartMap;
+    map<string, int> cartMap;
 
     // Converting cart vector to map
     for (int i = 0; i < cart.size(); i++) {
@@ -229,7 +229,7 @@ string Customer::checkoutMsg() {
 
         // Checking if order is already present in map
         if (it == cartMap.end()) {
-            cartMap.insert(pair < string, int > (orderInMenu -> second.name, 1));
+            cartMap.insert(pair<string, int> (orderInMenu -> second.name, 1));
         } else {
             it -> second++;
         }
