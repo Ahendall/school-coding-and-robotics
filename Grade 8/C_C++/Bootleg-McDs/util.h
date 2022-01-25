@@ -34,17 +34,19 @@ using std::vector;
 
 // non-class function prototypes
 int getInt(string query);
-string getString(string query);
-string lower(string word);
-void printMenu();
-string slice(string str, int start, int end);
-string slice(string str, int start);
 int strToInt(string str);
 int charToInt(char ch);
 int randomInt();
-void excellentChoice();
-bool removeFromVector(vector<int> &arr, int target);
+
+string getString(string query);
+string lower(string word);
 string checkoutMsg(vector <int> &cart);
+string slice(string str, int start, int end);
+string slice(string str, int start);
+
+bool removeFromVector(vector<int> &arr, int target);
+void excellentChoice();
+void printMenu();
 
 // SQLite Init
 database db("customers.db");
@@ -145,6 +147,7 @@ class Customer {
 };
 
 // Add item order
+// O(1) Amortized (Hashmap search is O(1), vector insertion is O(1) if re-allocation is not necessary)
 bool Customer::order(int order) {
 	// Getting iterator for order in menu
 	MENU_ITR orderInMenu = menu.find(order);
@@ -159,6 +162,7 @@ bool Customer::order(int order) {
 }
 
 // Prev Order Order
+// O(n) amortized
 bool Customer::order() {
 	price = prevOrder.price;
 
@@ -170,6 +174,7 @@ bool Customer::order() {
 }
 
 // Remove order
+// O(n) (removeFromVector is a linear algorithm)
 int Customer::remove(int order) {
 	// Menu Iteratorx
 	MENU_ITR orderInMenu = menu.find(order);
@@ -190,6 +195,7 @@ int Customer::remove(int order) {
 }
 
 // Checkout user
+// O(n) (for conversion of vector to str)
 bool Customer::checkout() {
 	float temp = cash;
 	cash -= price;
@@ -216,8 +222,8 @@ bool Customer::checkout() {
 	return true;
 }
 
-// Function that returns an organised message of items in the cart,
-// as well as the total price of items
+// Function that returns an organised message of items in the cart, as well as the total price of items
+// O(n + m) (n is the cart size, m is the amount of distinct items in the cart)
 string Customer::checkoutMsg() {
 	stringstream msg;
 	map<string, int> cartMap;
@@ -292,6 +298,7 @@ string getString(string query) {
 }
 
 // Function that converts a string to all lowercase
+// O(n) where n is the length of the string
 string lower(string word) {
 	for (int i = 0; i < word.size(); i++) {
 		if (isalpha(word[i]))
@@ -302,6 +309,7 @@ string lower(string word) {
 }
 
 // Function that will print menu and welcome message
+// O(1)
 void printMenu() {
 	stringstream ss1;
 	ss1 << "+------------------------------+-------+-----------------------------------------+\n" 
@@ -323,6 +331,7 @@ void printMenu() {
 
 // Function that implements abstract languages' "string slicing"
 // Will return all characters from str[start] to str[end] (exclusive)
+// O(n) where n is the difference between end and start
 string slice(string str, int start, int end) {
 	string slicedStr = notext;
 	for (int i = start; i < end; i++) {
@@ -333,6 +342,7 @@ string slice(string str, int start, int end) {
 }
 
 // Will return all characters from str[start] to end of str
+// O(n) where n is the difference between str.size() and start
 string slice(string str, int start) {
 	string slicedStr = notext;
 	for (int i = start; i < str.length(); i++) {
@@ -395,6 +405,7 @@ void excellentChoice() {
 // Helper function for Customer::remove()
 // Way to remove by item and not by index
 // However, actual implementation deletes by index anyway
+// O(n) operation
 bool removeFromVector(vector<int> &arr, int target) {
 	for (int i = 0; i < arr.size(); i++) {
 		if (arr[i] == target) {
