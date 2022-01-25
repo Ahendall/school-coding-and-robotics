@@ -11,7 +11,7 @@ int main() {
 	// Creating instance of customer Class
 	Customer customer(lower(getString("What is your name?\n")));
 
-	// Checking if custoemr is new
+	// Checking if customer is new
 	if (customer.isNew)
 		return newCustomer(customer);
 
