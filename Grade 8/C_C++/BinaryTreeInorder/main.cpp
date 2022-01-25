@@ -6,20 +6,26 @@ Given a binary tree, print out the nodes of the tree in an in-order fashion
 #include "binarytree.h"
 using namespace std;
 
-void printTreeNodes(treeNode *node);
+void printTreeNodesRecusivly(treeNode *node);
+void printTreeNodesIterative(treeNode *node);
 
 int main(void) {
 	treeNode *root = new treeNode(4);
 	createTree(root);
-	printTreeNodes(root);
+	printTreeNodesRecusivly(root);
+	printTreeNodesIterative(root);
 }
 
-void printTreeNodes(treeNode *node) {
+void printTreeNodesRecusivly(treeNode *node) {
 	if (node->leftChild != NULL)
-		printTreeNodes(node->leftChild);
+		printTreeNodesRecusivly(node->leftChild);
 	
 	cout << node->value << endl;
 
 	if (node->rightChild != NULL)
-		printTreeNodes(node->rightChild);
+		printTreeNodesRecusivly(node->rightChild);
+}
+
+void printTreeNodesIterative(treeNode *node) {
+
 }

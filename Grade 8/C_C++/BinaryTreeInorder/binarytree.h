@@ -21,5 +21,5 @@ void createTree(treeNode *rootnode) {
 	left->leftChild = new treeNode(1);
 
 	rootnode->leftChild = left;
-	rootnode->rightChild = left;
+	rootnode->rightChild = right;
 }
