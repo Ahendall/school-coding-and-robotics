@@ -236,6 +236,7 @@ string Customer::checkoutMsg() {
     }
 
     // Converting map to string
+    msg << "\nYou Ordered:\n";
     for (map<string, int>::iterator it = cartMap.begin(); it != cartMap.end(); it++) {
         msg << " - " << it -> first;
 
@@ -247,10 +248,10 @@ string Customer::checkoutMsg() {
     }
 
     // Adding final messages and returning stream in form of std::string
-    msg << "\n" <<
-        "You spent: " << price << "\n" <<
-        "Remaining cash: $" << cash << "\n" <<
-        "Thank you for your purchase! Come again soon!";
+    msg << "\n"
+        << "You spent: " << price << "\n"
+        << "Remaining cash: $" << cash << "\n"
+        << "Thank you for your purchase! Come again soon!";
 
     return msg.str();
 }

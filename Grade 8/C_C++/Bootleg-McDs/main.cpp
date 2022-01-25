@@ -6,7 +6,6 @@ int newCustomer(Customer customer);
 int existingCustomer(Customer customer);
 int orderLoop(Customer customer);
 
-
 // Main function to handle Instancing and customer newcheck
 int main() {
     // Creating instance of customer Class
