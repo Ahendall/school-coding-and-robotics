@@ -19,6 +19,7 @@ int main() {
         return existingCustomer(customer);
 }
 
+
 // Defining function prototypes
 int newCustomer(Customer customer) {
     // Print welcome message and menu
@@ -26,9 +27,11 @@ int newCustomer(Customer customer) {
     cout << "Here is our menu for today:\n\n";
     printMenu();
 
-    return orderLoop(customer);
+	return orderLoop(customer);
 }
 
+
+// Same as above, but adds option for customer to re-order their previous order
 int existingCustomer(Customer customer) {
     cout << "Welcome back, " << customer.name << ". Your remaining balance is: $" << customer.cash << "\n";
     cout << "Here is our menu for today:\n\n";
@@ -38,8 +41,7 @@ int existingCustomer(Customer customer) {
     do {
         cout << "\n";
         reOrderChoice = getString("Would you like to re-order your previous order?\n(y/n): ");
-    } while (reOrderChoice[0] != 'y'
-        and reOrderChoice[0] != 'n');
+    } while (reOrderChoice[0] != 'y' && reOrderChoice[0] != 'n');
 
     if (reOrderChoice[0] == 'y') {
         bool status = customer.order();
@@ -55,14 +57,13 @@ int existingCustomer(Customer customer) {
         cout << "Try ordering something else. \n";
     }
 
-    return orderLoop(customer);
+	return orderLoop(customer);
 }
 
 
-
+// Loop that above functions will use to allow user to order
 int orderLoop(Customer customer) {
-    // Infinite loop to get customer's orders
-    while (true) {
+	while (true) {
         string query = lower(getString(notext));
 
         // Customer wants to remove an order from cart
