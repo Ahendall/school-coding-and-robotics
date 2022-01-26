@@ -71,13 +71,13 @@ int orderLoop(Customer customer) {
 			int status = customer.remove(strToInt(slice(query, 3)));
 
 			if (status == 0)
-				cout << "Item " << query[3] << " removed successfully. Anything else?\n";
+				cout << "\nItem " << query[3] << " removed successfully. Anything else?\n";
 
 			else if (status == 1)
-				cout << "Item " << query[3] << " is not a valid order Id. Please try again.\n";
+				cout << "\nItem " << query[3] << " is not a valid order Id. Please try again.\n";
 
 			else
-				cout << "Item " << query[3] << " is not in your cart. Please try again.\n";
+				cout << "\nItem " << query[3] << " is not in your cart. Please try again.\n";
 		}
 
 		// Customer wants to checkout and pay
@@ -87,7 +87,7 @@ int orderLoop(Customer customer) {
 				cout << customer.checkoutMsg() << endl;
 				return 0;
 			} else {
-				cout << "You do not have enough money!\nTry removing a few things.";
+				cout << "\nYou do not have enough money!\nTry removing a few things.\n";
 				continue;
 			}
 		}
@@ -98,7 +98,7 @@ int orderLoop(Customer customer) {
 			bool orderStatus = customer.order(orderId);
 
 			if (not orderStatus)
-				cout << "I am not familiar with the order \"" << query << "\". Please try again." << endl;
+				cout << "\nI am not familiar with the order \"" << query << "\". Please try again." << endl;
 
 			else
 				excellentChoice();
