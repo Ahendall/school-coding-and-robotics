@@ -15,22 +15,8 @@
 
 // Namespace and class uses
 using namespace sqlite;
-using std::array;
-using std::cin;
-using std::cout;
-using std::endl;
-using std::exception;
-using std::find;
-using std::getline;
-using std::map;
-using std::next;
-using std::numeric_limits;
-using std::pair;
-using std::streamsize;
-using std::string;
-using std::stringstream;
-using std::to_string;
-using std::vector;
+using std::array, std::exception, std::map, std::numeric_limits, std::pair, std::streamsize, std::string, std::stringstream, std::vector;
+using std::endl, std::find, std::getline, std::next, std::to_string, std::cin, std::cout;
 
 // non-class function prototypes
 int getInt(string query);
