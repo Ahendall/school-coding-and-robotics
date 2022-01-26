@@ -98,7 +98,7 @@ int orderLoop(Customer customer) {
 			bool orderStatus = customer.order(orderId);
 
 			if (not orderStatus)
-				cout << "I am not familiar with the order \"" << orderId << "\". Please try again." << endl;
+				cout << "I am not familiar with the order \"" << query << "\". Please try again." << endl;
 
 			else
 				excellentChoice();
