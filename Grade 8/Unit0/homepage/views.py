@@ -8,10 +8,10 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 def index(request):
-	pass
+    return render(request, "index.html")
 
 def login(request):
-	pass
+    pass
 
 def signup(request):
-	pass
+    pass
