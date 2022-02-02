@@ -1,0 +1,26 @@
+/* Classes */
+.bg-custom {
+    background-color: #000000;
+    box-shadow: 0 0 0px 0 rgba(0, 0, 0, 0.9), 0 0 10px 0 rgba(0, 0, 0, 0.9);
+}
+
+.padding-alignments {
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+body {
+    background: #222;
+    color: #FFFFFF;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 auto;
+    width: 100%;
+    box-shadow: 0 10px 24px 0 rgba(0, 0, 0, 0.5), 0 10px 24px 0 rgba(0, 0, 0, 0.5);
+}
+
+html {
+    background: rgb(66, 66, 66);
+    -webkit-font-smoothing: antialiased;
+}
