@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block head %}
+<title>Home</title>
+<link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/icon type">
+{% endblock %}
+
+{% block body %}
+<h1 style="text-align:center;"> Homepage </h1>
+{% if recommendedMovies %}
+<h2 style="text-align:center;"> Recommended Movies </h2>
+<div class="row">
+    {% for movie in recommendedMovies %}
+    <div class="col-md-3">
+        <div class="card">
+            <img class="card-img-top" src="{{movie.image}}">
+            <div class="card-body">
+                <h5 class="card-title">{{movie.title}}</h5>
+                <p class="card-text">{{movie.description}}</p>
+
+                <!-- TODO: CHANGE THE ANCHOR LINK HERE LATER -->
+                <a href="{{movie.link}}" class="btn btn-primary">Learn More</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<h3 style="text-align:center; padding-top: 2%;"> You haven't voted on any movies! </h2>
+<p style="color: #686868; text-align: center;">Without info on what movies you like, we can't accurately suggest new ones to you!</p>
+{% endif %}
+{% endblock %}
