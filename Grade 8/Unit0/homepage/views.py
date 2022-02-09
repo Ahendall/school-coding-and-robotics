@@ -10,8 +10,6 @@ from django.db.models import Q
 from . import models
 
 # Create your views here.
-
-
 def index(request):
     # Checking for movies in user session
     if 'likedMovies' not in request.session:

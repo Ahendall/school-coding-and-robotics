@@ -20,7 +20,7 @@
                 <p class="card-text">{{movie.description}}</p>
 
                 <!-- TODO: CHANGE THE ANCHOR LINK HERE LATER -->
-                <a href="{{movie.link}}" class="btn btn-primary">Learn More</a>
+                <a href="{% url 'movies' %}/{{movie.linkName}}" class="btn btn-primary">Learn More</a>
             </div>
         </div>
     </div>

@@ -9,6 +9,7 @@ class Movie(models.Model):
     rating = models.IntegerField()
     image = models.CharField(max_length=200)
     description = models.TextField()
-    
+    linkName = models.CharField(max_length=200, default="")
+
     def __str__(self):
         return self.title
