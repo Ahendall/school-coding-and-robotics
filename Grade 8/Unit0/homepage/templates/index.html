@@ -18,9 +18,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{movie.title}}</h5>
                 <p class="card-text">{{movie.description}}</p>
-
-                <!-- TODO: CHANGE THE ANCHOR LINK HERE LATER -->
-                <a href="{% url 'movies' %}/{{movie.linkName}}" class="btn btn-primary">Learn More</a>
+                <a href="{% url 'movies:detail' movie.linkName %}" class="btn btn-primary">Learn More</a>
             </div>
         </div>
     </div>

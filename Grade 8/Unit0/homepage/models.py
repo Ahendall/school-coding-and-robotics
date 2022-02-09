@@ -7,7 +7,7 @@ class Movie(models.Model):
     genre = models.CharField(max_length=200)
     director = models.CharField(max_length=200)
     rating = models.IntegerField()
-    image = models.CharField(max_length=200)
+    image = models.CharField(max_length=1000)
     description = models.TextField()
     linkName = models.CharField(max_length=200, default="")
 
