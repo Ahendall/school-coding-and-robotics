@@ -1,23 +1,40 @@
 {% extends "./layout.html" %}
 
 {% block head %}
-	<title>{{ movie.title }}</title>
+<title>{{ movie.title }}</title>
 {% endblock %}
 
-{% block content %}
-	<!-- display all attributes of movie-->
-	<h1>{{ movie.title }}</h1>
-	<div class="row">
-		<div class="col-md-12">
-			<img src="{{movie.image}}">
-		</div>
-		<div>
-			<h3>{{ movie.title }}</h3>
-			<p>Year: {{ movie.year }}</p>
-			<p>Director: {{ movie.director }}</p>
-			<p>Genre: {{ movie.genre }}</p>
-			<p>Rating: {{ movie.rating }}/10</p>
-			<p><br>Description:<br>{{ movie.description }}</p>
-		</div>
+{% block body %}
+<!-- display all attributes of movie-->
+{% if movie %}
+<div class="row" style="overflow: hidden; position: relative;">
+	<div class="left">
+		<img src="{{movie.image}}" height="520" width="350" alt="test">
 	</div>
+	<div class="right" style="width: 60%; margin-left: 5%">
+		<h3>{{ movie.title }}</h3>
+		<span>Year: {{ movie.year }}</span>
+		<span><br>Director: {{ movie.director }}</span>
+		<span><br>Genre: {{ movie.genre }}</span>
+		<span><br>Rating: {{ movie.rating }}/10</span>
+		<p><br>Description:<br>{{ movie.description }}</p>
+		<br>
+
+		{% if like %}
+		<span>You like this movie!</span>
+		{% elif dislike %}
+		<span>You dislike this movie!</span>
+		{% endif %}
+		<!-- Buttons for like and dislike -->
+		<form action="{% url 'movies:action' 'like' %}" method="post">
+			<button type="submit" class="btn btn-outline-primary">Like</button>
+		</form>
+		<form action="{% url 'movies:action' 'dislike' %}" method="post">
+			<button type="submit" class="btn btn-outline-danger">Dislike</button>
+		</form>
+	</div>
+</div>
+{% else %}
+<h1>This movie does not exist!</h1>
+{% endif %}
 {% endblock %}

@@ -17,6 +17,23 @@
     width: 50%;
 }
 
+/* class to make a div right-aligned */
+.right {
+    float: right;
+}
+
+/* class to make a div left-aligned */
+.left {
+    float: left;
+}
+
+/* class to have multiple divs on one row */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
 body {
     background: #222;
     color: #FFFFFF;
@@ -26,6 +43,8 @@ body {
     margin: 0 auto;
     width: 100%;
     box-shadow: 0 10px 24px 0 rgba(0, 0, 0, 0.5), 0 10px 24px 0 rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    position: relative;
 }
 
 html {
