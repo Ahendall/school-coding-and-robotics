@@ -1,75 +1,133 @@
-
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from homepage import models
 
 # Create your views here.
 
 
 def index(request):
-    # convert movies into a matrix
-    movies = models.Movie.objects.all()
+	# convert movies into a matrix
+	movies = models.Movie.objects.all()
 
-    # sort movies in alphabetical order
-    movies = sorted(movies, key=lambda x: x.title)
+	# sort movies in alphabetical order
+	movies = sorted(movies, key=lambda x: x.title)
 
-    movie_matrix = []
-    while movies:
-        movie_matrix.append(list(movies[:5]))
-        movies = movies[5:]
+	movie_matrix = []
+	while movies:
+		movie_matrix.append(list(movies[:5]))
+		movies = movies[5:]
 
-    return render(request, 'movies/index.html', {
-        'movieMatrix': movie_matrix,
-    })
+	return render(request, 'movies/index.html', {
+		'movieMatrix': movie_matrix,
+	})
 
-# This is where all the data
-def detail(request, movie_name, action=None):
-    # Exception handle in case no movie is returned
-    try:
-        movie = models.Movie.objects.get(linkName=movie_name)
-    except:
-        return render(request, 'movies/detail.html', {
-            'movie': None,
-        })
+# Movie detail rendering stuff
 
-    # Check if user has liked or disliked the movie
-    if action == 'like' and movie.title not in request.session['likedMovies'] and request.method == 'POST':
-        request.session['likedMovies'].append(movie.title)
 
-        # remove movie from disliked list if it is there
-        if movie.title in request.session['dislikedMovies']:
-            request.session['dislikedMovies'].remove(movie.title)
+def detail(request, movie_name):
+	# Exception handle in case no movie is returned
+	try:
+		movie = models.Movie.objects.get(linkName=movie_name)
+		print(movie)
+		if movie.title in request.session['likedMovies']:
+			if movie.title == "Shrek":
+				return render(request, 'movies/detail.html', {
+					'movie': movie,
+					'liked': True,
+					'shrek': True,
+				})
+			return render(request, 'movies/detail.html', {
+				'movie': movie,
+				'liked': True,
+			})
 
-        # Update genreWeightedScore
-        for genre in movie.genre.split(','):
-            if genre in request.session['genreWeightedScore']:
-                request.session['genreWeightedScore'][genre] += 1
-            else:
-                request.session['genreWeightedScore'][genre] = 1
+		elif movie.title in request.session['dislikedMovies']:
+			if movie.title == "Shrek":
+				return render(request, 'movies/detail.html', {
+					'movie': movie,
+					'disliked': True,
+					'shrek': True,
+				})
+			return render(request, 'movies/detail.html', {
+				'movie': movie,
+				'disliked': True,
+			})
 
-        return render(request, 'movies/detail.html', {
-            'movie': movie,
-            'like': True
-        })
+		else:
+			if movie.title == "Shrek":
+				return render(request, 'movies/detail.html', {
+					'movie': movie,
+					'shrek': True,
+				})
+			return render(request, 'movies/detail.html', {
+				'movie': movie,
+			})
+	except:
+		return render(request, 'movies/detail.html', {
+			'movie': None,
+		})
 
-    elif action == 'dislike' and movie.title not in request.session['dislikedMovies'] and request.method == 'POST':
-        request.session['dislikedMovies'].append(movie.title)
 
-        # Remove movie from liked movies if it is there
-        if movie.title in request.session['likedMovies']:
-            request.session['likedMovies'].remove(movie.title)
+def like(request, movie_name):
+	# get movie
+	try:
+		movie = models.Movie.objects.get(linkName=movie_name)
+	except:
+		# redirect to main movie page
+		return HttpResponseRedirect(reverse('movies:index'))
 
-        # Update genreWeightedScore
-        for genre in movie.genre.split(','):
-            if genre in request.session['genreWeightedScore']:
-                request.session['genreWeightedScore'][genre] -= 1
-            else:
-                request.session['genreWeightedScore'][genre] = -1
+	# update session likedMovies
+	if 'likedMovies' not in request.session:
+		request.session['likedMovies'] = []
 
-        return render(request, 'movies/detail.html', {
-            'movie': movie,
-            'dislike': True,
-        })
+	if movie.title not in request.session['likedMovies']:
+		request.session['likedMovies'].append(movie.title)
 
-    return render(request, 'movies/detail.html', {
-        'movie': movie,
-    })
+	# remove movie if it is in dislike list
+	if movie.title in request.session['dislikedMovies']:
+		request.session['dislikedMovies'].remove(movie.title)
+
+	# update session genreWeightedScore
+	if 'genreWeightedScore' not in request.session:
+		request.session['genreWeightedScore'] = {}
+
+	if movie.genre not in request.session['genreWeightedScore']:
+		request.session['genreWeightedScore'][movie.genre] = 1
+	else:
+		request.session['genreWeightedScore'][movie.genre] += 1
+
+	# redirect to movie detail page
+	return HttpResponseRedirect(reverse('movies:detail', args=(movie.linkName,)))
+
+
+def dislike(request, movie_name):
+	# get movie
+	try:
+		movie = models.Movie.objects.get(linkName=movie_name)
+	except:
+		# redirect to main movie page
+		return HttpResponseRedirect(reverse('movies:index'))
+
+	# update session dislikedMovies
+	if 'dislikedMovies' not in request.session:
+		request.session['dislikedMovies'] = []
+
+	if movie.title not in request.session['dislikedMovies']:
+		request.session['dislikedMovies'].append(movie.title)
+
+	# remove movie if it is in liked list
+	if movie.title in request.session['likedMovies']:
+		request.session['likedMovies'].remove(movie.title)
+
+	# update session genreWeightedScore
+	if 'genreWeightedScore' not in request.session:
+		request.session['genreWeightedScore'] = {}
+
+	if movie.genre not in request.session['genreWeightedScore']:
+		request.session['genreWeightedScore'][movie.genre] = -1
+	else:
+		request.session['genreWeightedScore'][movie.genre] -= 1
+
+	# redirect to movie detail page
+	return HttpResponseRedirect(reverse('movies:detail', args=(movie.linkName,)))

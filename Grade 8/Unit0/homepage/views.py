@@ -36,12 +36,12 @@ def index(request):
 
     # Get movies from database where title not in dislikedMovies and not in likedMovies
     # and genre in likedGenres, and rating is greater than 5
-    # order in descending order, and limit by 20
+    # order in descending order, and limit by 10
     movies = models.Movie.objects.filter(
         ~Q(title__in=request.session['likedMovies']),
         ~Q(title__in=request.session['dislikedMovies']),
         genre__in=likedGenres, rating__gte=5
-    ).order_by('-rating').distinct()[:20]
+    ).order_by('-rating').distinct()[:10]
 
     return render(request, 'homepage/index.html', {
         'recommendedMovies': movies,

@@ -1,7 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 
-<html>
+<html style="overflow-y: scroll;">
 	<head>
 		<!-- Bootstrap Framework Imports -->
 		<link
@@ -30,7 +30,7 @@
 		<link rel="stylesheet" href="{% static 'styles.css' %}"/>
 		{% block head %} {% endblock %}
 	</head>
-	<body>
+	<body style="position: absolute;">
 		<nav class="navbar sticky-top navbar-dark bg-custom navbar-expand-lg">
 			<a class="navbar-brand" href="#">Bootleg IMDB</a>
 			<button
@@ -48,11 +48,11 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
-						<a class="nav-link" href="#">Home</a>
+						<a class="nav-link" href="{% url 'homepage:index' %}">Home</a>
 					</li>
 
 					<li class="nav-item">
-						<a class="nav-link" href="#">Movies</a>
+						<a class="nav-link" href="{% url 'movies:index' %}">Movies</a>
 					</li>
 
 					<li class="nav-item dropdown">

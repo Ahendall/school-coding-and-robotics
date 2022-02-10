@@ -12,16 +12,20 @@
 <h2 style="text-align:center;"> Recommended Movies </h2>
 <div class="row">
     {% for movie in recommendedMovies %}
-    <div class="col-md-3">
-        <div class="card">
-            <img class="card-img-top" src="{{movie.image}}">
-            <div class="card-body">
-                <h5 class="card-title">{{movie.title}}</h5>
-                <p class="card-text">{{movie.description}}</p>
-                <a href="{% url 'movies:detail' movie.linkName %}" class="btn btn-primary">Learn More</a>
-            </div>
-        </div>
-    </div>
+	<div class="card mb-3 bg-dark" style="max-width: 540px;">
+		<div class="row g-0">
+		  <div class="col-md-4">
+			<img src="{{movie.image}}" class="img-fluid rounded-start" alt="...">
+		  </div>
+		  <div class="col-md-8">
+			<div class="card-body">
+			  <h5 class="card-title">{{movie.title}}</h5>
+			  <p class="card-text">{{ movie.description }}</p>
+			  <a href="{% url 'movies:detail' movie.linkName %}" class="btn btn-primary">Learn More</a>
+			</div>
+		  </div>
+		</div>
+	  </div>
     {% endfor %}
 </div>
 {% else %}

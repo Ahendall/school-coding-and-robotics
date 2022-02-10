@@ -1,7 +1,7 @@
 /* Classes */
 .bg-custom {
     background-color: #000000;
-    box-shadow: 0 0 0px 0 rgba(0, 0, 0, 0.9), 0 0 10px 0 rgba(0, 0, 0, 0.9);
+    box-shadow: 10px rgba(0.9);
 }
 
 .padding-alignments {
@@ -17,6 +17,13 @@
     width: 50%;
 }
 
+/* class to have multiple divs on one row */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
 body {
     background: #222;
     color: #FFFFFF;
@@ -26,9 +33,11 @@ body {
     margin: 0 auto;
     width: 100%;
     box-shadow: 0 10px 24px 0 rgba(0, 0, 0, 0.5), 0 10px 24px 0 rgba(0, 0, 0, 0.5);
+	position: absolute;
 }
 
 html {
     background: rgb(66, 66, 66);
     -webkit-font-smoothing: antialiased;
+	overflow-y: scroll;
 }

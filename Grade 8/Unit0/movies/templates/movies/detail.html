@@ -1,40 +1,44 @@
-{% extends "./layout.html" %}
-
-{% block head %}
+{% extends "./layout.html" %} {% block head %}
 <title>{{ movie.title }}</title>
-{% endblock %}
-
-{% block body %}
+{% endblock %} {% block body %}
 <!-- display all attributes of movie-->
 {% if movie %}
-<div class="row" style="overflow: hidden; position: relative;">
-	<div class="left">
-		<img src="{{movie.image}}" height="520" width="350" alt="test">
+<div class="row">
+	<div class="left" style="margin: 2%">
+		<img src="{{movie.image}}" height="520" width="350" alt="test" />
 	</div>
-	<div class="right" style="width: 60%; margin-left: 5%">
+	<div class="right" style="width: 60%; margin: 2%">
 		<h3>{{ movie.title }}</h3>
 		<span>Year: {{ movie.year }}</span>
-		<span><br>Director: {{ movie.director }}</span>
-		<span><br>Genre: {{ movie.genre }}</span>
-		<span><br>Rating: {{ movie.rating }}/10</span>
-		<p><br>Description:<br>{{ movie.description }}</p>
-		<br>
+		<span><br />Director: {{ movie.director }}</span>
+		<span><br />Genre: {{ movie.genre }}</span>
+		<span><br />Rating: {{ movie.rating }}/10</span>
+		<span><br />Stars: {{ movie.stars }}</span>
+		<p><br />Description:<br />{{ movie.description }}</p>
+		<br />
 
-		{% if like %}
-		<span>You like this movie!</span>
-		{% elif dislike %}
-		<span>You dislike this movie!</span>
+		{% if liked %}
+		<span style="color: green">You like this movie!<br /></span>
+		{% elif disliked %}
+		<span style="color: red">You dislike this movie!<br /></span>
 		{% endif %}
-		<!-- Buttons for like and dislike -->
-		<form action="{% url 'movies:action' 'like' %}" method="post">
-			<button type="submit" class="btn btn-outline-primary">Like</button>
-		</form>
-		<form action="{% url 'movies:action' 'dislike' %}" method="post">
-			<button type="submit" class="btn btn-outline-danger">Dislike</button>
-		</form>
+		<!-- Buttons for like and dislike that redirect to movies:action -->
+		<a href="{% url 'movies:like' movie.linkName %}" class="btn btn-outline-success">Like</a>
+		<a href="{% url 'movies:dislike' movie.linkName %}" class="btn btn-outline-danger">Dislike</a>
 	</div>
 </div>
 {% else %}
 <h1>This movie does not exist!</h1>
-{% endif %}
-{% endblock %}
+{% endif %} {% if shrek %}
+<!-- iframe that plays shreksophone from youtube -->
+<div class="center">
+	<iframe
+		width="560"
+		height="315"
+		src="https://www.youtube.com/embed/z_HWtzUHm6s"
+		frameborder="0"
+		allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+		allowfullscreen
+	></iframe>
+</div>
+{% endif %} {% endblock %}
