@@ -16,14 +16,14 @@ def index(request):
         request.session['likedMovies'] = []
         request.session['dislikedMovies'] = []
         request.session['genreWeightedScore'] = {}
-        return render(request, 'index.html', {
+        return render(request, 'homepage/index.html', {
             # Setting recommended movies to false for django templating
             'recommendedMovies': False,
         })
 
     # Check if user list is empty
     if len(request.session['likedMovies']) == 0:
-        return render(request, 'index.html', {
+        return render(request, 'homepage/index.html', {
             # Setting recommended movies to false for django templating
             'recommendedMovies': False,
         })
@@ -43,6 +43,6 @@ def index(request):
         genre__in=likedGenres, rating__gte=5
     ).order_by('-rating').distinct()[:20]
 
-    return render(request, 'index.html', {
+    return render(request, 'homepage/index.html', {
         'recommendedMovies': movies,
     })

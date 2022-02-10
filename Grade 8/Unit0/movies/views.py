@@ -1,3 +1,4 @@
+
 from django.shortcuts import render
 from homepage import models
 
@@ -14,19 +15,20 @@ def index(request):
         movie_matrix.append(list(movies[:5]))
         movies = movies[5:]
 
-    return render(request, 'index.html', {
+    return render(request, 'movies/index.html', {
         'movieMatrix': movie_matrix,
     })
 
 def detail(request, movie_name):
-    movie = models.Movie.objects.get(linkName=movie_name)
-
-    # check if movie is empty
-    if movie is None:
-        return render(request, 'detail.html', {
+	try:
+    	movie = models.Movie.objects.get(linkName=movie_name)
+	except:
+		return render(request, 'movies/detail.html', {
             'movie': None,
         })
+
+    # check if movie is empty
     
-    return render(request, 'detail.html', {
+    return render(request, 'movies/detail.html', {
         'movie': movie,
     })
