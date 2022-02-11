@@ -43,6 +43,18 @@ def index(request):
         genre__in=likedGenres, rating__gte=5
     ).order_by('-rating').distinct()[:10]
 
+    # get liked movie objects and store in list
+    likedMovies = []
+    for movie in request.session['likedMovies']:
+        likedMovies.append(models.Movie.objects.get(title=movie))
+
+    # get disliked movie objects and store in list
+    dislikedMovies = []
+    for movie in request.session['dislikedMovies']:
+        dislikedMovies.append(models.Movie.objects.get(title=movie))
+
     return render(request, 'homepage/index.html', {
         'recommendedMovies': movies,
+        'likedMovies': likedMovies,
+        'dislikedMovies': dislikedMovies,
     })

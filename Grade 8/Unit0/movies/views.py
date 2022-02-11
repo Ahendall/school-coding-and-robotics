@@ -7,19 +7,14 @@ from homepage import models
 
 
 def index(request):
-	# convert movies into a matrix
 	movies = models.Movie.objects.all()
 
 	# sort movies in alphabetical order
 	movies = sorted(movies, key=lambda x: x.title)
 
-	movie_matrix = []
-	while movies:
-		movie_matrix.append(list(movies[:5]))
-		movies = movies[5:]
 
 	return render(request, 'movies/index.html', {
-		'movieMatrix': movie_matrix,
+		'movies': movies,
 	})
 
 # Movie detail rendering stuff
