@@ -24,13 +24,6 @@ def comedy(request):
         'comedy': movies,
     })
 
-def drama(request):
-    # Get list of all movies with "Drama" genre
-    movies = models.Movie.objects.filter(genre="Drama")
-    return render(request, 'genres/index.html', {
-        'drama': movies,
-    })
-
 def horror(request):
     # Get list of all movies with "Horror" genre
     movies = models.Movie.objects.filter(genre="Horror")

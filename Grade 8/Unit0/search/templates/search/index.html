@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head %}
-<title>Home</title>
+<title>Results for {{query}}</title>
 <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/icon type">
 {% endblock %}
 
@@ -25,6 +25,8 @@
             </div>
         </div>
     </div>
+	{% empty %}
+		<h1>No results found</h1>
     {% endfor %}
 </div>
 {% endblock %}
