@@ -26,11 +26,7 @@ SECRET_KEY = 'django-insecure-pgn$8k0$bjf%igl&6l4u^65%e4()4q%&3r9g&0!s1blea6@ih-
 DEBUG = True
 SESSION_SAVE_EVERY_REQUEST = True
 
-<<<<<<< HEAD
-ALLOWED_HOSTS = ['172.31.37.191', 'ec2-35-178-175-81.eu-west-2.compute.amazonaws.com']
-=======
 ALLOWED_HOSTS = ['*']
->>>>>>> e552babd4cf69e141e37615826eb6cc872348118
 
 
 # Application definition
