@@ -40,4 +40,5 @@ html {
     background: rgb(66, 66, 66);
     -webkit-font-smoothing: antialiased;
 	overflow-y: scroll;
+	scroll-behavior: smooth;
 }

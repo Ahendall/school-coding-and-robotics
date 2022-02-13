@@ -1,7 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 
-<html style="overflow-y: scroll;">
+<html style="overflow-y: scroll">
 	<head>
 		<!-- Bootstrap Framework Imports -->
 		<link
@@ -27,10 +27,10 @@
 		></script>
 
 		<!-- Custom Imports -->
-		<link rel="stylesheet" href="{% static 'styles.css' %}"/>
+		<link rel="stylesheet" href="{% static 'styles.css' %}" />
 		{% block head %} {% endblock %}
 	</head>
-	<body style="position: absolute;">
+	<body style="position: absolute">
 		<nav class="navbar sticky-top navbar-dark bg-custom navbar-expand-lg">
 			<a class="navbar-brand" href="#">Bootleg IMDB</a>
 			<button
@@ -78,14 +78,22 @@
 				</ul>
 				<form class="form-inline my-2 my-lg-0" action="{% url 'search:search' %}" method="POST">
 					{% csrf_token %}
-					<input class="form-control mr-sm-2" name="moviename" id="moviename" type="search" placeholder="Search" aria-label="Search" />
+					<input
+						class="form-control mr-sm-2"
+						name="moviename"
+						id="moviename"
+						type="search"
+						placeholder="Search"
+						aria-label="Search"
+					/>
 					<button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
 				</form>
 			</div>
 		</nav>
 
-		<div name="main-page" class="padding-alignments" style="padding-top: 0.5%">
-			{% block body %} {% endblock %}
-		</div>
+		<div name="main-page" class="padding-alignments" style="padding-top: 0.5%">{% block body %} {% endblock %}</div>
 	</body>
+	<footer style="margin-top: 1%">
+			<p style="text-align: center; color: rgb(75, 75, 75)">Data provided by the <a href="https://www.imdb.com/" style="color: rgb(100, 100, 100)">Internet Movie database</a></p>
+	</footer>
 </html>
