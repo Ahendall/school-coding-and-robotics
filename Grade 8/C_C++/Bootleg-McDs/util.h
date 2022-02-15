@@ -62,6 +62,8 @@ struct MenuItem {
 };
 
 // Declaration of menu items + Hashmap of MenuItems
+// Idk why i used this over an array and just accessing it using the indecies
+// but hey /shrug
 map<int, MenuItem> menu = {
 	{ 1, MenuItem("2 Peice chicken nugget", 2.00) },
 	{ 2, MenuItem("5 Peice chicken nugget", 5.00) },
