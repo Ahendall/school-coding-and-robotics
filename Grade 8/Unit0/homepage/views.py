@@ -10,6 +10,8 @@ from django.db.models import Q
 from . import models
 
 # Create your views here.
+
+
 def index(request):
 	# Checking for movies in user session
 	if 'likedMovies' not in request.session:
@@ -45,7 +47,7 @@ def index(request):
 
 	# Get all movies then perform filter
 	movies = models.Movie.objects.all()
-	
+
 	# Get rid of movies that are in likedMovies and dislikedMovies
 	for movie in movies:
 		if movie.title in request.session['likedMovies']:
@@ -80,13 +82,36 @@ def index(request):
 					recommendedMovies.append(movie)
 					break
 
-	# Sort ordered movies by genre
-	# The greater the value a genre has in session["genres"], the higher up the movies should be
-	# in the list
-	recommendedMovies = sorted(recommendedMovies, key=lambda x: request.session['genreWeightedScore'][x.genre], reverse=True)
-
 	# Remove any duplicates from recommendedMovies
 	recommendedMovies = list(dict.fromkeys(recommendedMovies))
+
+	# Get list of genre values if the value is more than 1
+	genres = []
+	for key, value in request.session['genreWeightedScore'].items():
+		if value > 1:
+			genres.append(value)
+
+	if len(genres) > 1:
+		same = allsame(genres)
+
+		if not same:
+			# Sort ordered movies by genre
+			# The greater the value a genre has in session["genres"], the higher up the movies should be in the list
+			recommendedMovies = sorted(
+				recommendedMovies, key=lambda x: request.session['genreWeightedScore'][x.genre], reverse=True)
+		else:
+			# Sort ordered movies by rating
+			recommendedMovies = sorted(
+				recommendedMovies, key=lambda x: x.rating, reverse=True)
+
+	else:
+		recommendedMovies = sorted(
+				recommendedMovies, key=lambda x: request.session['genreWeightedScore'][x.genre], reverse=True)
+
+	# Shortening recommended movies and re-sorting by rating
+	recommendedMovies = recommendedMovies[:6]
+	recommendedMovies = sorted(
+			recommendedMovies, key=lambda x: x.rating, reverse=True)
 
 	# get liked movie objects and store in list
 	likedMovies = []
@@ -104,9 +129,26 @@ def index(request):
 	except models.Movie.DoesNotExist:
 		dislikedMovies = None
 
-	print(recommendedMovies[:6])
+	# Some debugging stuff
+	print(request.session['likedMovies'])
+	print(recommendedMovies)
+
 	return render(request, 'homepage/index.html', {
-		'recommendedMovies': recommendedMovies[:6],
+		'recommendedMovies': recommendedMovies,
 		'likedMovies': likedMovies,
 		'dislikedMovies': dislikedMovies,
 	})
+
+
+# Helper function to see if all items in list are the same value
+def allsame(lst):
+	ele = lst[0]
+	chk = True
+
+	# Comparing each element with first item
+	for item in lst:
+		if ele != item:
+			chk = False
+			break
+
+	return True if chk else False
