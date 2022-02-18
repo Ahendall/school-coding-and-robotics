@@ -141,14 +141,13 @@ def index(request):
 
 
 # Helper function to see if all items in list are the same value
-def allsame(lst):
-	ele = lst[0]
-	chk = True
+def allsame(array):
+	same = True
 
 	# Comparing each element with first item
-	for item in lst:
-		if ele != item:
-			chk = False
+	for element in array:
+		if element != array[0]:
+			same = False
 			break
 
-	return True if chk else False
+	return True if same else False
