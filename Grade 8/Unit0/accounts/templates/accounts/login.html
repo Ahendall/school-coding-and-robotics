@@ -14,11 +14,6 @@
         box-sizing: border-box;
     }
 </style>
-{% if message %}
-<script>
-    alert("{{ message }}");
-</script>
-{% endif %}
 {% endblock %}
 
 {% block body %}
@@ -37,4 +32,9 @@
         <div class="center"><input class="btn btn-outline-primary" type="submit" value="Login"></div>
     </form>
 </div>
+{% if message %}
+<script>
+    alert("{{ message }}");
+</script>
+{% endif %}
 {% endblock %}
