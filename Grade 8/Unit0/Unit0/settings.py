@@ -36,6 +36,7 @@ INSTALLED_APPS = [
 	'genres',
 	'movies',
 	'search',
+    'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -22,4 +22,5 @@ urlpatterns = [
     path("movies/", include("movies.urls")),
     path("search/", include("search.urls")),
     path("genres/", include("genres.urls")),
+    path("accounts/", include("accounts.urls")),
 ]

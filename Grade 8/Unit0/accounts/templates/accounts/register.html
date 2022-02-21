@@ -1,0 +1,36 @@
+{% extends './layout.html' %}
+{% load static %}
+
+{% block head %}
+<title>Register</title>
+<link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/icon type">
+<style>
+    input {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<h2 style="text-align:center;"> Register </h2>
+<form action="{% url 'accounts:register' %}" method="post">
+    {% csrf_token %}
+    <div class="col-md-6 center">
+        Username: {{ form.username }}
+    </div>
+    <div class="col-md-6 center">
+        Password: {{ form.password1 }}
+    </div>
+    <div class="col-md-6 center">
+        Password (again): {{ form.password2 }}
+    </div>
+    <div class="col-md-6 center">
+        <input class="btn btn-outline-primary" type="submit" value="Register">
+    </div>
+</form>
+{% endblock %}

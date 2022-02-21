@@ -48,52 +48,18 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
-						<a class="nav-link" href="{% url 'homepage:index' %}">Home</a>
+						<a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
 					</li>
 
 					<li class="nav-item">
-						<a class="nav-link" href="{% url 'movies:index' %}">Movies</a>
+						<a class="nav-link" href="{% url 'accounts:register' %}">Register</a>
 					</li>
-
-					<li class="nav-item dropdown">
-						<a
-							class="nav-link dropdown-toggle"
-							href="#"
-							id="navbarDropdown"
-							role="button"
-							data-toggle="dropdown"
-							aria-haspopup="true"
-							aria-expanded="false"
-						>
-							Genres
-						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="{% url 'genres:action' %}">Action</a>
-							<a class="dropdown-item" href="{% url 'genres:comedy' %}">Comedy</a>
-							<a class="dropdown-item" href="{% url 'genres:horror' %}">Horror</a>
-							<a class="dropdown-item" href="{% url 'genres:fantasy' %}">Fantasy</a>
-							<div class="dropdown-divider"></div>
-						</div>
-					</li>
-				</ul>
-				<form class="form-inline my-2 my-lg-0" action="{% url 'search:search' %}" method="POST">
-					{% csrf_token %}
-					<input
-						class="form-control mr-sm-2"
-						name="moviename"
-						id="moviename"
-						type="search"
-						placeholder="Search"
-						aria-label="Search"
-					/>
-					<button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
-				</form>
 			</div>
 		</nav>
 
 		<div name="main-page" class="padding-alignments" style="padding-top: 0.5%">{% block body %} {% endblock %}</div>
 	</body>
 	<footer style="margin-top: 1%">
-			<p style="text-align: center; color: rgb(75, 75, 75)">Data provided by the <a href="https://www.imdb.com/" style="color: rgb(100, 100, 100)">Internet Movie database</a> ||| <a href="{% url 'accounts:logout' %}" style="color: rgb(100, 100, 100)">Logout</a></p>
+			<p style="text-align: center; color: rgb(75, 75, 75)">Data provided by the <a href="https://imdb.com/" style="color: rgb(100, 100, 100)">Internet Movie database</a></p>
 	</footer>
 </html>

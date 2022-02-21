@@ -94,6 +94,6 @@
 		<div name="main-page" class="padding-alignments" style="padding-top: 0.5%">{% block body %} {% endblock %}</div>
 	</body>
 	<footer style="margin-top: 1%">
-			<p style="text-align: center; color: rgb(75, 75, 75)">Data provided by the <a href="https://www.imdb.com/" style="color: rgb(100, 100, 100)">Internet Movie database</a></p>
+			<p style="text-align: center; color: rgb(75, 75, 75)">Data provided by the <a href="https://www.imdb.com/" style="color: rgb(100, 100, 100)">Internet Movie database</a> ||| <a href="{% url 'accounts:logout' %}" style="color: rgb(100, 100, 100)">Logout</a></p>
 	</footer>
 </html>

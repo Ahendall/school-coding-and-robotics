@@ -10,9 +10,12 @@ from django.db.models import Q
 from . import models
 
 # Create your views here.
-
+# All views need to be authenticated
 
 def index(request):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect(reverse("accounts:login"))
+		
 	# Checking for movies in user session
 	if 'likedMovies' not in request.session:
 		request.session['likedMovies'] = []

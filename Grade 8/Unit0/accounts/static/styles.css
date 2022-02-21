@@ -1,0 +1,43 @@
+/* Classes */
+.bg-custom {
+    background-color: #000000;
+    box-shadow: 10px rgba(0.9);
+}
+
+.padding-alignments {
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+/* class for horizontal centering */
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* class to have multiple divs on one row */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+body {
+    background: #222;
+    color: #ffffff;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 auto;
+    width: 100%;
+    box-shadow: 0 10px 24px 0 rgba(0, 0, 0, 0.5), 0 10px 24px 0 rgba(0, 0, 0, 0.5);
+	position: absolute;
+}
+
+html {
+    background: rgb(66, 66, 66);
+    -webkit-font-smoothing: antialiased;
+	overflow-y: scroll;
+	scroll-behavior: smooth;
+}

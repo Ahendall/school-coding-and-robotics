@@ -7,6 +7,9 @@ from homepage import models
 
 
 def index(request):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect(reverse("accounts:login"))
+		
 	movies = models.Movie.objects.all()
 
 	# sort movies in alphabetical order
@@ -21,6 +24,9 @@ def index(request):
 
 
 def detail(request, movie_name):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect(reverse("accounts:login"))
+		
 	# Exception handle in case no movie is returned
 	try:
 		movie = models.Movie.objects.get(linkName=movie_name)
@@ -65,6 +71,9 @@ def detail(request, movie_name):
 
 
 def like(request, movie_name):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect(reverse("accounts:login"))
+		
 	# get movie
 	try:
 		movie = models.Movie.objects.get(linkName=movie_name)
@@ -97,6 +106,9 @@ def like(request, movie_name):
 
 
 def dislike(request, movie_name):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect(reverse("accounts:login"))
+		
 	# get movie
 	try:
 		movie = models.Movie.objects.get(linkName=movie_name)

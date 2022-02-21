@@ -11,6 +11,9 @@ from homepage import models
 
 
 def search(request):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect(reverse("accounts:login"))
+		
 	# Redirect to homepage if request method is get
 	if request.method == 'GET':
 		return HttpResponseRedirect(reverse('homepage:home'))

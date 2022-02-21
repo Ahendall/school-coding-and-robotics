@@ -11,29 +11,41 @@ from homepage import models
 
 # Create your views here.
 def action(request):
-    # Get list of all movies with "Action" genre
-    movies = models.Movie.objects.filter(genre="Action")
-    return render(request, 'genres/index.html', {
-        'action': movies,
-    })
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect(reverse("accounts:login"))
+		
+	# Get list of all movies with "Action" genre
+	movies = models.Movie.objects.filter(genre="Action")
+	return render(request, 'genres/index.html', {
+		'action': movies,
+	})
 
 def comedy(request):
-    # Get list of all movies with "Comedy" genre
-    movies = models.Movie.objects.filter(genre="Comedy")
-    return render(request, 'genres/index.html', {
-        'comedy': movies,
-    })
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect(reverse("accounts:login"))
+		
+	# Get list of all movies with "Comedy" genre
+	movies = models.Movie.objects.filter(genre="Comedy")
+	return render(request, 'genres/index.html', {
+		'comedy': movies,
+	})
 
 def horror(request):
-    # Get list of all movies with "Horror" genre
-    movies = models.Movie.objects.filter(genre="Horror")
-    return render(request, 'genres/index.html', {
-        'horror': movies,
-    })
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect(reverse("accounts:login"))
+		
+	# Get list of all movies with "Horror" genre
+	movies = models.Movie.objects.filter(genre="Horror")
+	return render(request, 'genres/index.html', {
+		'horror': movies,
+	})
 
 def fantasy(request):
-    # Get list of all movies with "Fantasy" genre
-    movies = models.Movie.objects.filter(genre="Fantasy")
-    return render(request, 'genres/index.html', {
-        'fantasy': movies,
-    })
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect(reverse("accounts:login"))
+		
+	# Get list of all movies with "Fantasy" genre
+	movies = models.Movie.objects.filter(genre="Fantasy")
+	return render(request, 'genres/index.html', {
+		'fantasy': movies,
+	})
