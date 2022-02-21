@@ -14,6 +14,11 @@
         box-sizing: border-box;
     }
 </style>
+{% if message %}
+<script>
+    alert("{{ message }}");
+</script>
+{% endif %}
 {% endblock %}
 
 {% block body %}

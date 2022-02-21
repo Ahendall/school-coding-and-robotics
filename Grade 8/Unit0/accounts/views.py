@@ -27,7 +27,7 @@ def login_view(request):
 			return HttpResponseRedirect(reverse('homepage:index'))
 		else:
 			return render(request, 'accounts/login.html', {
-				'message': 'Invalid login'
+				'message': 'Invalid Username/Password'
 			})
 
 
