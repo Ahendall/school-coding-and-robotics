@@ -12,6 +12,9 @@ from .forms import SignUpForm
 
 
 def login_view(request):
+	if request.user.is_authenticated:
+		return HttpResponseRedirect(reverse("homepage:index"))
+
 	if request.method == "GET":
 		return render(request, 'accounts/login.html')
 
@@ -29,12 +32,20 @@ def login_view(request):
 
 
 def logout_view(request):
+	# Clear likedmoviees, dislikedmovies, and genreweightedscore
+	request.session['likedMovies'] = []
+	request.session['dislikedMovies'] = []
+	request.session['genreWeightedScore'] = {}
+
 	logout(request)
 	return HttpResponseRedirect(reverse('accounts:login'))
 	
 
 
 def register(request):
+	if request.user.is_authenticated:
+		return HttpResponseRedirect(reverse("homepage:index"))
+
 	if request.method == "GET":
 		# Render template with django signupform
 		form = SignUpForm()

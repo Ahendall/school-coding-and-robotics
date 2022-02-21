@@ -4,6 +4,7 @@
 {% block head %}
 <title>Register</title>
 <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/icon type">
+<script src="{% static 'script.js' %}"></script>
 <style>
     input {
         width: 100%;
@@ -18,7 +19,7 @@
 
 {% block body %}
 <h2 style="text-align:center;"> Register </h2>
-<form action="{% url 'accounts:register' %}" method="post">
+<form onsubmit="return verifyReg()" action="{% url 'accounts:register' %}" method="post" id="register">
     {% csrf_token %}
     <div class="col-md-6 center">
         Username: {{ form.username }}
@@ -32,5 +33,7 @@
     <div class="col-md-6 center">
         <input class="btn btn-outline-primary" type="submit" value="Register">
     </div>
+    <p style="text-align:center; color:rgb(71, 71, 71)">Username cannot contain special characters</p>
+    <p style="text-align:center; color:rgb(77, 77, 77)">Password bust be at least 8 characters, and contain 1 uppercase letter, 1 lowercase letter, a number, and a special character.</p>
 </form>
 {% endblock %}
