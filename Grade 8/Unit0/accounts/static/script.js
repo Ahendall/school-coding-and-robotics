@@ -6,7 +6,7 @@ function verifyUsername(username) {
     if (!regex.test(username)) {
         issues += " - Username must only contain a-z and 0-9.\n";
     }
-    
+
     // Username length stuff
     if (username.length < 3) {
         issues += " - Username must be at least 3 characters long.\n";
@@ -14,7 +14,7 @@ function verifyUsername(username) {
     if (username.length > 20) {
         issues += " - Username must be less than 20 characters long.\n";
     }
-    
+
     // Returning stuff
     if (issues.length > 0) {
         return issues;
@@ -46,42 +46,23 @@ function verifyPasswords(password, password2) {
     // Since i kinda just let copilot do its thing
     for (let i = 0; i < password.length; i++) {
         // Check for special character
-        if (password.charCodeAt(i) >= 33 && password.charCodeAt(i) <= 47) {
-            special = true;
-        }
+        if (password.charCodeAt(i) >= 33 && password.charCodeAt(i) <= 47) { special = true; }
 
         // Check for number
-        if (password.charCodeAt(i) >= 48 && password.charCodeAt(i) <= 57) {
-            number = true;
-        }
+        if (password.charCodeAt(i) >= 48 && password.charCodeAt(i) <= 57) { number = true; }
 
         // Check for lowercase letter
-        if (password.charCodeAt(i) >= 97 && password.charCodeAt(i) <= 122) {
-            lowercase = true;
-        }
+        if (password.charCodeAt(i) >= 97 && password.charCodeAt(i) <= 122) { lowercase = true; }
 
         // Check for uppercase letter
-        if (password.charCodeAt(i) >= 65 && password.charCodeAt(i) <= 90) {
-         uppercase = true;
-        }
+        if (password.charCodeAt(i) >= 65 && password.charCodeAt(i) <= 90) { uppercase = true; }
     }
 
     // If any remaining falses add it to issues string
-    if (!uppercase) {
-        issues += " - Password must contain at least one uppercase letter.\n";
-    }
-
-    if (!lowercase) {
-        issues += " - Password must contain at least one lowercase letter.\n";
-    }
-
-    if (!number) {
-        issues += " - Password must contain at least one number.\n";
-    }
-
-    if (!special) {
-        issues += " - Password must contain at least one special character.\n";
-    }
+    if (!uppercase) { issues += " - Password must contain at least one uppercase letter.\n"; }
+    if (!lowercase) { issues += " - Password must contain at least one lowercase letter.\n"; }
+    if (!number) { issues += " - Password must contain at least one number.\n";}
+    if (!special) { issues += " - Password must contain at least one special character.\n"; }
 
     // Returning stuff
     if (issues.length > 0) {
