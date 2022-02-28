@@ -46,7 +46,7 @@ function verifyPasswords(password, password2) {
     // Since i kinda just let copilot do its thing
     for (let i = 0; i < password.length; i++) {
         // Check for special character
-        if (password.charCodeAt(i) >= 33 && password.charCodeAt(i) <= 47) { special = true; }
+        if ((password.charCodeAt(i) >= 33 && password.charCodeAt(i) <= 47) || (password.charCodeAt(i) >= 58 && password.charCodeAt(i) <= 64)){ special = true; }
 
         // Check for number
         if (password.charCodeAt(i) >= 48 && password.charCodeAt(i) <= 57) { number = true; }
