@@ -26,7 +26,7 @@ def returningCustomer(customer: Customer.Customer):
 	orderChoice = util.getInt("To re-order your previous order, type in 1. To make a new order, type in any other number.")
 	if orderChoice == 1:
 		orderStatus = customer.orderPrev()
-		if orderStatus == 0:
+		if orderStatus == True:
 			print(customer.getReciept())
 			sys.exit(0)
 		else:
@@ -61,9 +61,13 @@ def orderLoop(customer: Customer.Customer, args: list):
 				order = int(order[3:])
 				orderStatus = customer.rm(order)
 				if orderStatus == -1:
+					util.clearLines(customer.cart, customer.itemToPrint)
 					cprint("Invalid order number! Try again.", 'red')
+					continue
 				elif orderStatus == -2:
+					util.clearLines(customer.cart, customer.itemToPrint)
 					cprint("Order not in cart! Try again.", 'red')
+					continue
 				util.clearLines(customer.cart, customer.itemToPrint)
 				print(customer.getCart())
 				cprint(util.getExcellentChoiceMsg(), 'green', attrs=['bold'])
