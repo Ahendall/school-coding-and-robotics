@@ -1,6 +1,7 @@
 from cs50 import SQL
 from termcolor import colored, cprint
 
+
 class Customer:
 	# Inner Classes
 	class MenuItem:
@@ -13,6 +14,7 @@ class Customer:
 
 	# Class members
 	_db = SQL("sqlite:///customers.db")
+	itemToPrint = ""
 	menuItems = [
 		MenuItem("2 Piece Chicken Nugget", 2.99),
 		MenuItem("5 Piece Chicken Nugget", 5.99),
@@ -62,14 +64,19 @@ class Customer:
 		# Make sure order is valid
 		order -= 1  # Subtract 1 to make it 0-indexed
 		if (order < 0) or (order > 11):
+			self.itemToPrint = ""
 			return -1
 
 		# Add order to cart
+		if order in self.cart:
+			self.itemToPrint = ""
+		else:
+			self.itemToPrint = "\n"
 		self.cart.append(order)
 		self.price += self.menuItems[order].price
 		return 0
 
-	def orderPrev(self) -> int: # Function orders previous order instead of new order
+	def orderPrev(self) -> int:  # Function orders previous order instead of new order
 		# convert order from csv to list of ints
 		order = self.prev_order.split(",")
 		for item in order:
@@ -87,6 +94,12 @@ class Customer:
 		if order not in self.cart:
 			return -2
 		self.cart.remove(order)
+		self.price -= self.menuItems[order].price
+		
+		if order in self.cart:
+			self.itemToPrint = ""
+		else:
+			self.itemToPrint = "\033[F\033[K"
 		return 0
 
 	def checkout(self) -> bool:
@@ -99,7 +112,7 @@ class Customer:
 		order = ""
 		for item in self.cart:
 			order += str(item) + ","
-		order = order[:-1] # Remove trailing comma
+		order = order[:-1]  # Remove trailing comma
 
 		# Update DB
 		self._db.execute(

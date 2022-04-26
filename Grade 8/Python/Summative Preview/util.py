@@ -3,31 +3,31 @@ import os
 from typing import OrderedDict
 
 def getInt(prompt: str) -> int:
-    # Loops prompting user for `prompt` until valid integer is given
-    while True:
-        print(prompt)
-        query = input()
-        try:
-            query = int(query)
-            break
-        except ValueError:
-            # Error with typecasting str to int meaning input is invalid
-            continue
+	# Loops prompting user for `prompt` until valid integer is given
+	while True:
+		print(prompt)
+		query = input()
+		try:
+			query = int(query)
+			break
+		except ValueError:
+			# Error with typecasting str to int meaning input is invalid
+			continue
 
-    return query
+	return query
 
 def clearScreen():
 	os.system('cls' if os.name == 'nt' else 'clear')
 
-def clearLines(cart):
+def clearLines(cart, itemToPrint):
 	# make sure cart has no duplicates
 	uniqueCart = list(OrderedDict.fromkeys(cart))
-
-	for i in range(len(uniqueCart) + 3):
+	print(itemToPrint, end="")
+	for i in range(len(uniqueCart) + 4):
 		print("\033[F\033[K", end="")
 
 def getMenu() -> str:
-    return"""+----+------------------------------+-------------+
+	return"""+----+------------------------------+-------------+
 | Id |             Item             | Price (USD) |
 +----+------------------------------+-------------+
 |  1 | 2 Piece Chicken Nugget       |       $2.99 |
@@ -46,10 +46,10 @@ def getMenu() -> str:
 
 
 def getOrderPrompt() -> str:
-    return """What would you like to order?
-    - To add something to your cart: Type in the order id
-    - To remove an item from your cart: type in `rm [order_id]`
-    - To checkout and pay: type in `checkout`
+	return """What would you like to order?
+	- To add something to your cart: Type in the order id
+	- To remove an item from your cart: type in `rm [order_id]`
+	- To checkout and pay: type in `checkout`
 
 You ordered:
 
@@ -58,16 +58,16 @@ What would you like to order? """
 
 
 def getExcellentChoiceMsg() -> str:
-    excellent = ["Excellent choice. ",
-                 "Wonderful! ",
-                 "A fine selection. ",
-                 "Brilliant choice. ",
-                 "Great! "]
+	excellent = ["Excellent choice. ",
+				 "Wonderful! ",
+				 "A fine selection. ",
+				 "Brilliant choice. ",
+				 "Great! "]
 
-    anythingElse = ["Anything else?",
-                    "Anything else to add to your cart?",
-                    "Any more items?",
-                    "Would you like to add anything else?",
-                    "Will that be all?"]
+	anythingElse = ["Anything else?",
+					"Anything else to add to your cart?",
+					"Any more items?",
+					"Would you like to add anything else?",
+					"Will that be all?"]
 
-    return f"{choice(excellent)}{choice(anythingElse)}"
+	return f"{choice(excellent)}{choice(anythingElse)}"

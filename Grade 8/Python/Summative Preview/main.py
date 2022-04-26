@@ -31,6 +31,8 @@ def returningCustomer(customer: Customer.Customer):
 			sys.exit(0)
 		else:
 			err = colored("You do not have enough money! Please make a new order instead.", 'red', attrs=['bold'])
+			customer.cart = []
+			customer.price = 0
 			return orderLoop(customer, [err, "Here is our menu for today:"])
 
 	return orderLoop(customer, [])
@@ -62,12 +64,12 @@ def orderLoop(customer: Customer.Customer, args: list):
 					cprint("Invalid order number! Try again.", 'red')
 				elif orderStatus == -2:
 					cprint("Order not in cart! Try again.", 'red')
-				util.clearLines(customer.cart)
+				util.clearLines(customer.cart, customer.itemToPrint)
 				print(customer.getCart())
 				cprint(util.getExcellentChoiceMsg(), 'green', attrs=['bold'])
 				continue
 			except ValueError:
-				util.clearLines(customer.cart)
+				util.clearLines(customer.cart, customer.itemToPrint)
 				print(customer.getCart())
 				cprint("Invalid order id. Please try again.", 'red')
 				continue
@@ -77,7 +79,7 @@ def orderLoop(customer: Customer.Customer, args: list):
 				print(customer.getReciept())
 				sys.exit(0)
 			else:
-				util.clearLines(customer.cart)
+				util.clearLines(customer.cart, customer.itemToPrint)
 				print(customer.getCart())
 				cprint("You don't have enough money! Try removing a few items.", 'red', attrs=['bold'])
 				continue
@@ -86,16 +88,16 @@ def orderLoop(customer: Customer.Customer, args: list):
 				order = int(order)
 				orderStatus = customer.order(order)
 				if orderStatus == -1:
-					util.clearLines(customer.cart)
+					util.clearLines(customer.cart, customer.itemToPrint)
 					print(customer.getCart())
 					cprint("Invalid order id! Please try again!", 'red')
 					continue
-				util.clearLines(customer.cart)
+				util.clearLines(customer.cart, customer.itemToPrint)
 				print(customer.getCart())
 				cprint(util.getExcellentChoiceMsg(), 'green', attrs=['bold'])
 				continue
 			except ValueError:
-				util.clearLines(customer.cart)
+				util.clearLines(customer.cart, customer.itemToPrint)
 				print(customer.getCart())
 				cprint("Invalid order id! Please try again!", 'red')
 				continue
