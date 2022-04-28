@@ -88,12 +88,18 @@ class Customer:
 		# Make sure order is valid
 		order -= 1
 		if (order < 0) or (order > 11):
-			self.itemToPrint = "\n\n"
+			if len(self.cart) > 0:
+				self.itemToPrint = "\n\n\n"
+			else:
+				self.itemToPrint = "\n\n"
 			return -1
 
 		# Remove order from cart
 		if order not in self.cart:
-			self.itemToPrint = "\n\n"
+			if len(self.cart) > 0:
+				self.itemToPrint = "\n\n\n"
+			else:
+				self.itemToPrint = "\n\n"
 			return -2
 		self.cart.remove(order)
 		self.price -= self.menuItems[order].price

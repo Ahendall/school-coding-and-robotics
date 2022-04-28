@@ -26,6 +26,10 @@ def clearLines(cart, itemToPrint):
 	for i in range(len(uniqueCart) + 4):
 		print("\033[F\033[K", end="")
 
+def clearSetLines(lineCount: int):
+	for i in range(lineCount):
+		print("\033[F\033[K", end="")
+
 def getMenu() -> str:
 	return"""+----+------------------------------+-------------+
 | Id |             Item             | Price (USD) |

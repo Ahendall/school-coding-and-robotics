@@ -5,7 +5,6 @@ since they will exit through sys.exit()
 
 import util
 import Customer
-import os
 import sys
 from termcolor import colored, cprint
 
@@ -44,6 +43,7 @@ def newCustomer(customer: Customer.Customer):
 	return orderLoop(customer, args)
 
 def orderLoop(customer: Customer.Customer, args: list):
+	printCart = True
 	util.clearScreen()
 	for arg in args:
 		print(arg)
@@ -61,11 +61,11 @@ def orderLoop(customer: Customer.Customer, args: list):
 				order = int(order[3:])
 				orderStatus = customer.rm(order)
 				if orderStatus == -1:
-					util.clearLines(customer.cart, customer.itemToPrint)
+					util.clearSetLines(2)
 					cprint("Invalid order number! Try again.", 'red')
 					continue
 				elif orderStatus == -2:
-					util.clearLines(customer.cart, customer.itemToPrint)
+					util.clearSetLines(2)
 					cprint("Order not in cart! Try again.", 'red')
 					continue
 				util.clearLines(customer.cart, customer.itemToPrint)
@@ -101,9 +101,11 @@ def orderLoop(customer: Customer.Customer, args: list):
 				cprint(util.getExcellentChoiceMsg(), 'green', attrs=['bold'])
 				continue
 			except ValueError:
+				customer.itemToPrint = ""
 				util.clearLines(customer.cart, customer.itemToPrint)
 				print(customer.getCart())
 				cprint("Invalid order id! Please try again!", 'red')
+				customer.itemToPrint = ""
 				continue
 
 
