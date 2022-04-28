@@ -1,18 +1,12 @@
 
-# C&R 8 Summative preview
-Made simply because sammy talked too much crap
+# C&R Summative Assignment
+Keeping with the theme that all my projects are basically ripoffs of real-life items,
+I present to you: Bootleg McDonalds
 ## Requirements
-
-### Python Version
  - Python 3.8.10 or newer
  - cs50 library
 
-###
- - Just make sure g++ works on your system
-
-## Installing
-
-### Python:
+## Installing:
 #### Windows
 
  - Install python from [Python.org](https://www.python.org/)
