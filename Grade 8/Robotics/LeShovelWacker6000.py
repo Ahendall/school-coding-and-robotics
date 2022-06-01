@@ -1,9 +1,5 @@
-# Example LED program.
-# Plug in a single colored LED into port 1, a tri colored LED into tri-color
-# port 2, a motor into motor port 1, a sound sensor in port 4, and
-# a distance sensor into port 1.
-# Place the distance sensor so it will not detect anything within 80cm of itself.
-# To exit out of the program, move your hand in front of the distance sensor.
+# Made by Ahendall, noahthemonkeey, and legendbenny
+# We might've made it, but we have no idea how it works lol.
 from BirdBrainLegacy import Hummingbird
 from time import sleep
 
