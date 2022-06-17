@@ -1,6 +1,6 @@
 # Made by Ahendall, noahthemonkeey, and legendbenny
 # We might've made it, but we have no idea how it works lol.
-# used python cos arduino wouldn't fucking work :(
+# used python cos arduino wouldn't work :(
 from BirdBrainLegacy import Hummingbird
 from time import sleep
 
